@@ -9,11 +9,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function trades(Request $request)
+    public function trades(User $user, Request $request)
     {
-        // get user
-        $user = User::where('name', $request->user)->firstOrFail();
-
         // get user trades
         $trades = $user->trades()->get();
 
@@ -21,11 +18,8 @@ class UserController extends Controller
         return view('user', ['user' => $user, 'trades' => $trades]);
     }
 
-    public function tradesByCurrency(Request $request)
+    public function tradesByCurrency(User $user, Request $request)
     {
-        // get user
-        $user = User::where('name', $request->user)->firstOrFail();
-
         // get currency
         $currency = $request->currency;
 
@@ -41,11 +35,8 @@ class UserController extends Controller
         return view('user', ['user' => $user, 'trades' => $trades]);
     }
 
-    public function stock(Request $request)
+    public function stock(User $user, Request $request)
     {
-        // get user
-        $user = User::where('name', $request->user)->firstOrFail();
-
         $ticker = $request->stock;
 
         // get stock
@@ -84,11 +75,8 @@ class UserController extends Controller
         return view('user', ['user' => $user, 'stock' => $stock, 'trades' => $trades, 'json' => $json]);
     }
 
-    public function indexPriceAbove(Request $request)
+    public function indexPriceAbove(User $user, Request $request)
     {
-        // get user
-        $user = User::where('name', $request->user)->firstOrFail();
-
         // get user trades in CHF
         $trades = $user->trades();
         $trades = $trades->where('purchase_price', '>', 50)->get();
