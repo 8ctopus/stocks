@@ -6,8 +6,7 @@
     GRANT ALL PRIVILEGES ON `stocks`.* TO 'stocks'@'%';
     FLUSH PRIVILEGES;
 
-    php artisan migrate
-
-    php artisan db:seed
+# create tables and seed them
+    php artisan migrate:fresh --seed
 
 
