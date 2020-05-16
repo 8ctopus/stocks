@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
         $this->call(StocksSeeder::class);
 
-        if (file_exists('MyTradesSeeder.php'))
+        if (file_exists('database/seeds/MyTradesSeeder.php'))
             $this->call(MyTradesSeeder::class);
         else
             $this->call(TradesSeeder::class);
