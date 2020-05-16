@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "dev 9000",
+        "type": "php",
+        "request": "launch",
+        "port": 9000,
+        "log": true,
+        "stopOnEntry": false,
+        "pathMappings":
+        {
+          "/var/www/site/": "${workspaceRoot}"
+        },
+      },
+      {
+        "name": "Launch",
+        "request": "launch",
+        "type": "php",
+        "program": "${file}",
+        "cwd": "${workspaceRoot}",
+        "externalConsole": false
+      }
+    ]
+  }

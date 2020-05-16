@@ -1,0 +1,16 @@
+/.env
+
+/vendor/
+
+/etc/
+/log/
+
+/public/hot
+/public/storage
+
+/node_modules
+/npm-debug.log
+/yarn-error.log
+
+/storage/*.key
+/*.sublime-workspace

@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  mariadb:
+    image: 8ct8pus/mariadb-alpine:latest
+    container_name: stocks-db
+    ports:
+      - 3306:3306
+    volumes:
+      # save mariadb databases to named volume
+      - database:/var/lib/mysql/
+      # expose mariadb config to host
+      - ./etc/:/docker/etc/
+  web:
+    image: 8ct8pus/apache-php-alpine:latest
+    container_name: stocks
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - DOMAIN=localhost
+      - DOCUMENT_ROOT=/public
+    links:
+      - mariadb
+    volumes:
+      # development directory
+      - ./:/var/www/site/
+      # expose apache logs to host
+      - ./log/:/var/log/apache2/
+      # expose apache2 and php config to host
+      - ./etc/:/docker/etc/
+volumes:
+  database:
