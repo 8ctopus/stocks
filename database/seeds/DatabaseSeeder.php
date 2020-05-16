@@ -13,7 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersSeeder::class);
         $this->call(StocksSeeder::class);
-        $this->call(TradesSeeder::class);
+
+        if (file_exists('MyTradesSeeder.php'))
+            $this->call(MyTradesSeeder::class);
+        else
+            $this->call(TradesSeeder::class);
+
         $this->call(StocksPriceHistory::class);
     }
 }
