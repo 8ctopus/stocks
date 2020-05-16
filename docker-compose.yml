@@ -12,7 +12,7 @@ services:
       # expose mariadb config to host
       - ./etc/:/docker/etc/
   web:
-    image: 8ct8pus/apache-php-alpine:latest
+    image: 8ct8pus/apache-php-fpm-alpine:latest
     container_name: stocks
     ports:
       - 80:80
