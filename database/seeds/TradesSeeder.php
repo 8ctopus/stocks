@@ -1,9 +1,8 @@
 <?php
 
-use App\User;
-use App\Trade;
 use App\Stock;
-
+use App\Trade;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class TradesSeeder extends Seeder

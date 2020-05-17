@@ -2,7 +2,6 @@
 
 use App\Stock;
 use App\StockPriceHistory;
-
 use Illuminate\Database\Seeder;
 
 class StocksPriceHistory extends Seeder
