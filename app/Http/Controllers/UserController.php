@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Stock;
-
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -27,7 +26,7 @@ class UserController extends Controller
         $trades = $user->trades();
 
         // get only trades in currency
-        $trades = $trades->whereHas('stock', function($query) use ($currency) {
+        $trades = $trades->whereHas('stock', function ($query) use ($currency) {
                 $query->where('currency', $currency);
             })->get();
 
@@ -43,7 +42,7 @@ class UserController extends Controller
         $stock = Stock::where('ticker', $ticker)->firstOrFail();
 
         // get only trades related to stock
-        $trades = $user->trades()->whereHas('stock', function($query) use ($ticker) {
+        $trades = $user->trades()->whereHas('stock', function ($query) use ($ticker) {
                 $query->where('ticker', $ticker);
             })->get();
 

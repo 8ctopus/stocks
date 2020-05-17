@@ -29,6 +29,5 @@ class StockPriceHistory extends Model
         curl_close($ch);
 
         $json = json_decode($json);
-
     }
 }
