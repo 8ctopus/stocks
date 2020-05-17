@@ -52,7 +52,7 @@ return (new PhpCsFixer\Config())
         'echo_tag_syntax' => true,
         'fully_qualified_strict_types' => true,
         'function_typehint_space' => true,
-        'include' => true,
+        //'include' => true,
         'increment_style' => true,
         'lambda_not_used_import' => true,
         'linebreak_after_opening_tag' => true,
