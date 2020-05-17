@@ -46,7 +46,7 @@ class UserController extends Controller
                 $query->where('ticker', $ticker);
             })->get();
 
-        $ticker = str_replace(':', '.', $ticker);
+        $ticker      = str_replace(':', '.', $ticker);
         $ticker_file = $ticker .'.json';
 
         if (!file_exists($ticker_file))
