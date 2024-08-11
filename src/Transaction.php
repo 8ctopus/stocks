@@ -17,6 +17,11 @@ class Transaction
         $this->price = $price;
     }
 
+    public function date() : DateTime
+    {
+        return $this->date;
+    }
+
     public function shares() : int
     {
         return $this->shares;

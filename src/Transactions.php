@@ -2,6 +2,8 @@
 
 namespace Oct8pus\Stocks;
 
+use DateTime;
+
 class Transactions
 {
     private array $list;
@@ -23,6 +25,21 @@ class Transactions
         $units = 0;
 
         foreach ($this->list as $transaction) {
+            $units += $transaction->shares();
+        }
+
+        return $units;
+    }
+
+    public function sharesOn(DateTime $date) : int
+    {
+        $units = 0;
+
+        foreach ($this->list as $transaction) {
+            if ($transaction->date() > $date) {
+                continue;
+            }
+
             $units += $transaction->shares();
         }
 

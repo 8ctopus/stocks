@@ -2,6 +2,8 @@
 
 namespace Oct8pus\Stocks;
 
+use DateTime;
+
 class Position
 {
     private readonly string $ticker;
@@ -18,6 +20,11 @@ class Position
     public function value() : float
     {
         return $this->transactions->shares() * $this->price;
+    }
+
+    public function sharesOn(DateTime $date) : int
+    {
+        return $this->transactions->sharesOn($date);
     }
 
     public function detailed() : string

@@ -6,12 +6,10 @@ use DateTime;
 
 class DividendHistory
 {
-    private readonly string $ticker;
     private array $history;
 
-    public function __construct(string $ticker)
+    public function __construct()
     {
-        $this->ticker = $ticker;
         $this->history = [];
     }
 
@@ -35,6 +33,6 @@ class DividendHistory
             $output .= $point['date']->format('d.m.Y') . " {$dividend}\n";
         }
 
-        return $output;
+        return $output . "\n";
     }
 }
