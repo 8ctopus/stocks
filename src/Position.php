@@ -15,11 +15,6 @@ class Position
         $this->transactions = $transactions ?? new Transactions();
     }
 
-    public function transactions() : Transactions
-    {
-        return $this->transactions;
-    }
-
     public function value() : float
     {
         return $this->transactions->shares() * $this->price;
@@ -45,7 +40,7 @@ class Position
             $differenceFormatted = str_pad(number_format($difference, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
             $percentage = sprintf('%+.1f', 100 * $difference / $this->transactions->total());
-            $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n";
+            $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n\n";
         }
 
         return $output;
