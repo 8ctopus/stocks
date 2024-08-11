@@ -16,7 +16,6 @@ class Transactions
     public function add(Transaction $transaction) : self
     {
         $this->list[] = $transaction;
-
         return $this;
     }
 

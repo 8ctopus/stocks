@@ -2,24 +2,18 @@
 
 namespace Oct8pus\Stocks;
 
-use DateTime;
-
 class DividendHistory
 {
-    private array $history;
+    private array $list;
 
     public function __construct()
     {
-        $this->history = [];
+        $this->list = [];
     }
 
-    public function add(DateTime $date, float $dividend) : self
+    public function add(Dividend $dividend) : self
     {
-        $this->history[] = [
-            'date' => $date,
-            'dividend' => $dividend,
-        ];
-
+        $this->list[] = $dividend;
         return $this;
     }
 
@@ -27,10 +21,8 @@ class DividendHistory
     {
         $output = '';
 
-        for ($i = count($this->history); $i > 0; --$i) {
-            $point = $this->history[$i -1];
-            $dividend = sprintf('%.2f', $point['dividend']);
-            $output .= $point['date']->format('d.m.Y') . " {$dividend}\n";
+        for ($i = count($this->list); $i > 0; --$i) {
+            $output .= $this->list[$i -1];
         }
 
         return $output . "\n";
