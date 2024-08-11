@@ -17,9 +17,40 @@ class Position
         $this->transactions = $transactions ?? new Transactions();
     }
 
-    public function value() : float
+    public function currentValue() : float
     {
         return $this->transactions->shares() * $this->price;
+    }
+
+    public function sharesOn(DateTime $date) : int
+    {
+        return $this->transactions->sharesOn($date);
+    }
+
+    public function detailed() : string
+    {
+        $output = <<<TXT
+        {$this->ticker}
+
+
+        TXT;
+
+        $output .= $this->transactions->detailed();
+
+        if ($this->price !== null) {
+            $price = sprintf('%6.2f', $this->price);
+            $total = str_pad(number_format($this->currentValue(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
+
+            $output .= "CURRENT VALUE      {$price} = {$total}\n";
+
+            $difference = $this->currentValue() - $this->transactions->total();
+            $differenceFormatted = str_pad(number_format($difference, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
+
+            $percentage = sprintf('%+.1f', 100 * $difference / $this->transactions->total());
+            $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n\n";
+        }
+
+        return $output;
     }
 
     public function dividends(DividendHistory $history) : string
@@ -42,40 +73,10 @@ class Position
             $output .= "{$dateStr}  {$shares} *   {$dividend} = {$amount}\n";
         }
 
+        $percentage = sprintf('%+.1f', 100 * $total / $this->currentValue());
+
         $total = str_pad(number_format($total, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-        $output .= "TOTAL                       {$total}";
-
-        return $output;
-    }
-
-    public function sharesOn(DateTime $date) : int
-    {
-        return $this->transactions->sharesOn($date);
-    }
-
-    public function detailed() : string
-    {
-        $output = <<<TXT
-        {$this->ticker}
-
-
-        TXT;
-
-        $output .= $this->transactions->detailed();
-
-        if ($this->price !== null) {
-            $price = sprintf('%6.2f', $this->price);
-            $total = str_pad(number_format($this->value(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-            $output .= "CURRENT VALUE      {$price} = {$total}\n";
-
-            $difference = $this->value() - $this->transactions->total();
-            $differenceFormatted = str_pad(number_format($difference, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-            $percentage = sprintf('%+.1f', 100 * $difference / $this->transactions->total());
-            $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n\n";
-        }
+        $output .= "TOTAL                       {$total} ({$percentage}%)\n\n";
 
         return $output;
     }
