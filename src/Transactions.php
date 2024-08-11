@@ -58,7 +58,8 @@ class Transactions
     {
         $output = '';
 
-        foreach ($this->list as $transaction) {
+        for ($i = count($this->list); $i > 0; --$i) {
+            $transaction = $this->list[$i - 1];
             $output .= $transaction;
         }
 
