@@ -42,16 +42,25 @@ class Transactions
 
     public function price() : float
     {
-        return $this->total() / $this->shares();
+        $shares = $this->shares();
+
+        return $shares ? $this->total() / $shares : $this->total();
     }
 
     public function summary() : string
     {
-        $shares = sprintf('%5d', $this->shares());
-        $price = sprintf('%6.2f', $this->price());
-        $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
+        $shares = $this->shares();
 
-        return "           {$shares} * {$price} = {$total}\n";
+        if ($shares === 0) {
+            $total = str_pad(number_format(- $this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
+            return "LIQUIDATED                  {$total}\n";
+        } else {
+            $sharesFormatted = sprintf('%5d', $shares);
+            $price = sprintf('%6.2f', $this->price());
+            $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
+
+            return "TOTAL      {$sharesFormatted} * {$price} = {$total}\n";
+        }
     }
 
     public function detailed() : string

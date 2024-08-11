@@ -13,6 +13,11 @@ class Position
         $this->transactions = $transactions ?? new Transactions();
     }
 
+    public function transactions() : Transactions
+    {
+        return $this->transactions;
+    }
+
     public function detailed() : string
     {
         $output = <<<TXT
@@ -22,10 +27,5 @@ class Position
         TXT;
 
         return $output . $this->transactions->detailed();
-    }
-
-    public function transactions() : Transactions
-    {
-        return $this->transactions;
     }
 }
