@@ -34,7 +34,7 @@ class Transaction
 
     public function __toString() : string
     {
-        $date = $this->date->format('d-m-Y');
+        $date = $this->date->format('d.m.Y');
         $shares = sprintf('%5d', $this->shares);
         $price = sprintf('%6.2f', $this->price);
         $total = str_pad(number_format($this->value(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);

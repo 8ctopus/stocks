@@ -24,21 +24,27 @@ class Position
 
     public function dividends(DividendHistory $history) : string
     {
-        $output = '';
+        $output = "DIVIDENDS\n";
         $total = 0;
 
         foreach ($history as $item) {
             $date = $item->date();
             $shares = $this->transactions->sharesOn($date);
-            $dateStr = $date->format('d-m-Y');
+            $dateStr = $date->format('d.m.Y');
 
             $dividend = $item->dividend();
             $amount = $shares * $dividend;
             $total += $amount;
-            $output .= "{$dateStr}: {$shares} * {$dividend} = {$amount}\n";
+
+            $dividend = sprintf('%.2f', $dividend);
+            $amount = str_pad(number_format($amount, 0, '.', '\''), 7, ' ', STR_PAD_LEFT);
+
+            $output .= "{$dateStr}  {$shares} *   {$dividend} = {$amount}\n";
         }
 
-        $output .= "TOTAL {$total}";
+        $total = str_pad(number_format($total, 0, '.', '\''), 7, ' ', STR_PAD_LEFT);
+
+        $output .= "TOTAL                       {$total}";
 
         return $output;
     }
@@ -62,7 +68,7 @@ class Position
             $price = sprintf('%6.2f', $this->price);
             $total = str_pad(number_format($this->value(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
-            $output .= "CURRENT            {$price} = {$total}\n";
+            $output .= "CURRENT VALUE      {$price} = {$total}\n";
 
             $difference = $this->value() - $this->transactions->total();
             $differenceFormatted = str_pad(number_format($difference, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
