@@ -37,12 +37,12 @@ class Position
             $total += $amount;
 
             $dividend = sprintf('%.2f', $dividend);
-            $amount = str_pad(number_format($amount, 0, '.', '\''), 7, ' ', STR_PAD_LEFT);
+            $amount = str_pad(number_format($amount, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
             $output .= "{$dateStr}  {$shares} *   {$dividend} = {$amount}\n";
         }
 
-        $total = str_pad(number_format($total, 0, '.', '\''), 7, ' ', STR_PAD_LEFT);
+        $total = str_pad(number_format($total, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
         $output .= "TOTAL                       {$total}";
 

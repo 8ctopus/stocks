@@ -75,7 +75,7 @@ class Transactions
             $price = sprintf('%6.2f', $this->price());
             $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
-            return "COST       {$sharesFormatted} * {$price} = {$total}\n";
+            return "POS. COST  {$sharesFormatted} * {$price} = {$total}\n";
         }
     }
 
