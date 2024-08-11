@@ -53,13 +53,13 @@ class Transactions
 
         if ($shares === 0) {
             $total = str_pad(number_format(- $this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-            return "LIQUIDATED                  {$total}\n";
+            return "PROFIT                      {$total}\n";
         } else {
             $sharesFormatted = sprintf('%5d', $shares);
             $price = sprintf('%6.2f', $this->price());
             $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
-            return "TOTAL      {$sharesFormatted} * {$price} = {$total}\n";
+            return "COST       {$sharesFormatted} * {$price} = {$total}\n";
         }
     }
 
