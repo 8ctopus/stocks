@@ -15,6 +15,16 @@ class Dividend
         $this->dividend = $dividend;
     }
 
+    public function date() : DateTime
+    {
+        return $this->date;
+    }
+
+    public function dividend() : float
+    {
+        return $this->dividend;
+    }
+
     public function __toString() : string
     {
         $dividend = sprintf('%.2f', $this->dividend);

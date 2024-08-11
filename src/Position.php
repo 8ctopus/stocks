@@ -22,6 +22,27 @@ class Position
         return $this->transactions->shares() * $this->price;
     }
 
+    public function dividends(DividendHistory $history) : string
+    {
+        $output = '';
+        $total = 0;
+
+        foreach ($history as $item) {
+            $date = $item->date();
+            $shares = $this->transactions->sharesOn($date);
+            $dateStr = $date->format('d-m-Y');
+
+            $dividend = $item->dividend();
+            $amount = $shares * $dividend;
+            $total += $amount;
+            $output .= "{$dateStr}: {$shares} * {$dividend} = {$amount}\n";
+        }
+
+        $output .= "TOTAL {$total}";
+
+        return $output;
+    }
+
     public function sharesOn(DateTime $date) : int
     {
         return $this->transactions->sharesOn($date);
