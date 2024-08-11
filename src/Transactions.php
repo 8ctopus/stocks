@@ -34,7 +34,7 @@ class Transactions
         $total = 0;
 
         foreach ($this->list as $transaction) {
-            $total += $transaction->total();
+            $total += $transaction->value();
         }
 
         return $total;
