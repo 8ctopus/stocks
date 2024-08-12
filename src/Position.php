@@ -5,18 +5,26 @@ declare(strict_types=1);
 namespace Oct8pus\Stocks;
 
 use DateTime;
+use Exception;
 
 class Position
 {
     private readonly string $ticker;
     private readonly ?float $price;
     private readonly Transactions $transactions;
+    private readonly ?DividendHistory $history;
 
-    public function __construct(string $ticker, ?float $price = null, ?Transactions $transactions = null)
+    public function __construct(string $ticker, float $price, Transactions $transactions)
     {
         $this->ticker = $ticker;
         $this->price = $price;
-        $this->transactions = $transactions ?? new Transactions();
+        $this->transactions = $transactions;
+    }
+
+    public function setDividendHistory(DividendHistory $history) : self
+    {
+        $this->history = $history;
+        return $this;
     }
 
     public function currentValue() : float
@@ -29,53 +37,60 @@ class Position
         return $this->transactions->sharesOn($date);
     }
 
-    public function detailed() : string
+    public function report(string $type) : string
     {
-        $output = "{$this->ticker}\n\n";
-        $output .= $this->transactions->detailed();
+        switch ($type) {
+            case 'transactions':
+                return $this->transactions->detailed();
 
-        if ($this->price !== null) {
-            $data[] = [
-                'CURRENT VALUE',
-                $this->price,
-                $this->currentValue(),
-                '',
-            ];
+            case 'profit':
+                return $this->profit();
 
-            $difference = $this->currentValue() - $this->transactions->total();
+            case 'dividends':
+                return $this->dividends();
 
-            $data[] = [
-                'UNREALIZED',
-                '',
-                $difference,
-                sprintf('(%+.1f%%)', 100 * $difference / $this->transactions->total())
-            ];
-
-            /* REM
-            $price = sprintf('%6.2f', $this->price);
-            $total = str_pad(number_format($this->currentValue(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-            $output .= "CURRENT VALUE      {$price} = {$total}\n";
-
-            $difference = $this->currentValue() - $this->transactions->total();
-            $differenceFormatted = str_pad(number_format($difference, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-            $percentage = sprintf('%+.1f', 100 * $difference / $this->transactions->total());
-            $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n\n";
-            */
-
-            $output .= (new Table($data));
+            default:
+                throw new Exception();
         }
-
-        return $output . "\n";
     }
 
-    public function dividends(DividendHistory $history) : string
+    private function profit() : string
+    {
+        if ($this->price === null) {
+            throw new Exception('stock price not set');
+        }
+
+        $data[] = [
+            'CURRENT VALUE',
+            $this->transactions->shares(),
+            '*',
+            $this->price,
+            '=',
+            $this->currentValue(),
+            '',
+        ];
+
+        $difference = $this->currentValue() - $this->transactions->total();
+
+        $data[] = [
+            'UNREALIZED',
+            '',
+            '',
+            '',
+            '',
+            $difference,
+            sprintf('(%+.1f%%)', 100 * $difference / $this->transactions->total())
+        ];
+
+        return (string) new Table($data) . "\n";
+    }
+
+    public function dividends() : string
     {
         $data = [];
         $total = 0;
 
-        foreach ($history as $item) {
+        foreach ($this->history as $item) {
             $date = $item->date();
             $shares = $this->transactions->sharesOn($date);
 
