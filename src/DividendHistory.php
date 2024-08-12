@@ -36,6 +36,6 @@ class DividendHistory implements IteratorAggregate
             $data[] = $this->list[$i -1]->data();
         }
 
-        return (new TableFormat($data))->render();
+        return (new Table($data))->render();
     }
 }

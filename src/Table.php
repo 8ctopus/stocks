@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks;
 
-class TableFormat
+class Table
 {
     private readonly array $data;
 

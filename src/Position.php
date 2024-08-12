@@ -64,7 +64,7 @@ class Position
             $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n\n";
             */
 
-            $output .= (new TableFormat($data))->render();
+            $output .= (new Table($data))->render();
         }
 
         return $output . "\n";
@@ -104,6 +104,6 @@ class Position
             'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->currentValue()),
         ];
 
-        return "DIVIDENDS\n" . (new TableFormat($data))->render();
+        return "DIVIDENDS\n" . (new Table($data))->render();
     }
 }
