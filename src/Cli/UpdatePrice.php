@@ -6,25 +6,28 @@ namespace Oct8pus\Stocks\Cli;
 
 use Swew\Cli\Command;
 
-class StatsTicker extends Command
+class UpdatePrice extends Command
 {
-    const NAME = 'positions:stats {ticker}';
-    const DESCRIPTION = 'Stats for position';
+    const NAME = 'stocks:price {ticker (str)} {price (float)}';
+    const DESCRIPTION = 'Update stock price';
 
     public function __invoke() : int
     {
         $commander = $this->getCommander();
+        $portfolio = $commander->portfolio();
 
         $ticker = $this->arg('ticker')->getValue();
+        $price = $this->arg('price')->getValue();
 
-        foreach ($commander->portfolio() as $position) {
+        foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
-            $this->output->writeLn($position->report('transactions') . $position->report('profit') . $position->report('dividends'));
+            $position->setPrice($price);
         }
 
+        $portfolio->save();
         return self::SUCCESS;
     }
 }

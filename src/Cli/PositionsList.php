@@ -9,8 +9,8 @@ use Swew\Cli\Command;
 
 class PositionsList extends Command
 {
-    const NAME = 'positions list';
-    const DESCRIPTION = 'List stocks';
+    const NAME = 'positions:list';
+    const DESCRIPTION = 'List positions';
 
     public function __invoke() : int
     {
