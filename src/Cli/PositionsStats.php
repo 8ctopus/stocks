@@ -6,7 +6,7 @@ namespace Oct8pus\Stocks\Cli;
 
 use Swew\Cli\Command;
 
-class StatsTicker extends Command
+class PositionsStats extends Command
 {
     const NAME = 'positions:stats {ticker}';
     const DESCRIPTION = 'Stats for position';
