@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Oct8pus\Stocks;
 
 use DateTime;
@@ -23,6 +25,14 @@ class Dividend
     public function dividend() : float
     {
         return $this->dividend;
+    }
+
+    public function data() : array
+    {
+        return [
+            'date' => $this->date->format('d.m.Y'),
+            'dividend' => $this->dividend,
+        ];
     }
 
     public function __toString() : string

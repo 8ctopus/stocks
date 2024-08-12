@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Oct8pus\Stocks;
 
 use DateTime;
@@ -29,15 +31,27 @@ class Position
 
     public function detailed() : string
     {
-        $output = <<<TXT
-        {$this->ticker}
-
-
-        TXT;
-
+        $output = "{$this->ticker}\n\n";
         $output .= $this->transactions->detailed();
 
         if ($this->price !== null) {
+            $data[] = [
+                'CURRENT VALUE',
+                $this->price,
+                $this->currentValue(),
+                '',
+            ];
+
+            $difference = $this->currentValue() - $this->transactions->total();
+
+            $data[] = [
+                'UNREALIZED',
+                '',
+                $difference,
+                sprintf('(%+.1f%%)', 100 * $difference / $this->transactions->total())
+            ];
+
+            /* REM
             $price = sprintf('%6.2f', $this->price);
             $total = str_pad(number_format($this->currentValue(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
@@ -48,36 +62,48 @@ class Position
 
             $percentage = sprintf('%+.1f', 100 * $difference / $this->transactions->total());
             $output .= "UNREALIZED                  {$differenceFormatted} ($percentage%)\n\n";
+            */
+
+            $output .= (new TableFormat($data))->render();
         }
 
-        return $output;
+        return $output . "\n";
     }
 
     public function dividends(DividendHistory $history) : string
     {
-        $output = "DIVIDENDS\n";
+        $data = [];
         $total = 0;
 
         foreach ($history as $item) {
             $date = $item->date();
             $shares = $this->transactions->sharesOn($date);
-            $dateStr = $date->format('d.m.Y');
 
-            $dividend = $item->dividend();
-            $amount = $shares * $dividend;
-            $total += $amount;
+            $dividendPerShare = $item->dividend();
+            $dividend = $shares * $dividendPerShare;
+            $total += $dividend;
 
-            $dividend = sprintf('%.2f', $dividend);
-            $amount = str_pad(number_format($amount, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-            $output .= "{$dateStr}  {$shares} *   {$dividend} = {$amount}\n";
+            $data[] = [
+                'date' => $date,
+                'shares' => $shares,
+                '*' => '*',
+                'dividend per share' => $dividendPerShare,
+                '=' => '=',
+                'dividend' => (int) round($dividend, 0, PHP_ROUND_HALF_UP),
+                'percentage' => '',
+            ];
         }
 
-        $percentage = sprintf('%+.1f', 100 * $total / $this->currentValue());
+        $data[] = [
+            'date' => '',
+            'shares' => '',
+            '*' => '',
+            'dividend per share' => '',
+            '=' => '',
+            'dividend' => (int) $total,
+            'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->currentValue()),
+        ];
 
-        $total = str_pad(number_format($total, 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-        $output .= "TOTAL                       {$total} ({$percentage}%)\n\n";
-
-        return $output;
+        return "DIVIDENDS\n" . (new TableFormat($data))->render();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Oct8pus\Stocks;
 
 use DateTime;
@@ -30,6 +32,16 @@ class Transaction
     public function value() : float
     {
         return $this->price * $this->shares;
+    }
+
+    public function data() : array
+    {
+        return [
+            'date' => $this->date,
+            'shares' => $this->shares,
+            'price' => $this->price,
+            'total' => (int) $this->value(),
+        ];
     }
 
     public function __toString() : string

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Oct8pus\Stocks;
 
 use DateTime;
@@ -63,33 +65,36 @@ class Transactions
         return $shares ? $this->total() / $shares : $this->total();
     }
 
-    public function summary() : string
-    {
-        $shares = $this->shares();
-
-        if ($shares === 0) {
-            $total = str_pad(number_format(- $this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-            return "PROFIT                      {$total}\n";
-        } else {
-            $sharesFormatted = sprintf('%5d', $shares);
-            $price = sprintf('%6.2f', $this->price());
-            $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
-            return "POS. COST  {$sharesFormatted} * {$price} = {$total}\n";
-        }
-    }
-
     public function detailed() : string
     {
-        $output = '';
+        $data = [];
 
         for ($i = count($this->list); $i > 0; --$i) {
             $transaction = $this->list[$i - 1];
-            $output .= $transaction;
+            $data[] = $transaction->data();
         }
 
-        $output .= "------------------------------------\n";
+        $shares = $this->shares();
 
-        return $output . $this->summary();
+        if ($shares === 0) {
+            $data[] = [
+                'date' => 'PROFIT',
+                'shares' => '',
+                'price' => '',
+                'total' => $this->total(),
+            ];
+        } else {
+            $price = sprintf('%6.2f', $this->price());
+            $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
+
+            $data[] = [
+                'date' => "POSITION COST",
+                'shares' => $shares,
+                'price' => "{$price}",
+                'total' => "{$total}",
+            ];
+        }
+
+        return (new TableFormat($data))->render();
     }
 }

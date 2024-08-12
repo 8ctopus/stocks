@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Oct8pus\Stocks;
 
 use ArrayIterator;
@@ -21,19 +23,19 @@ class DividendHistory implements IteratorAggregate
         return $this;
     }
 
-    public function __toString() : string
-    {
-        $output = '';
-
-        for ($i = count($this->list); $i > 0; --$i) {
-            $output .= $this->list[$i -1];
-        }
-
-        return $output . "\n";
-    }
-
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->list);
+    }
+
+    public function __toString() : string
+    {
+        $data = [];
+
+        for ($i = count($this->list); $i > 0; --$i) {
+            $data[] = $this->list[$i -1]->data();
+        }
+
+        return (new TableFormat($data))->render();
     }
 }
