@@ -21,8 +21,8 @@ class Table
         foreach ($this->data as $row) {
             $index = 0;
 
-            foreach ($row as $title => $cell) {
-                $output .= str_pad($this->toStr($cell), $widths[$title] + ($index ? 1 : 0), ' ', STR_PAD_LEFT);
+            foreach ($row as $cell) {
+                $output .= str_pad($this->toStr($cell), $widths[$index] + ($index ? 1 : 0), ' ', STR_PAD_LEFT);
                 ++$index;
             }
 
@@ -37,8 +37,11 @@ class Table
         $widths = [];
 
         foreach ($this->data as $row) {
-            foreach ($row as $title => $cell) {
-                $widths[$title] = max($widths[$title] ?? 0, strlen($this->toStr($cell)));
+            $index = 0;
+
+            foreach ($row as $cell) {
+                $widths[$index] = max($widths[$index] ?? 0, strlen($this->toStr($cell)));
+                ++$index;
             }
         }
 
