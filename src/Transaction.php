@@ -39,7 +39,9 @@ class Transaction
         return [
             'date' => $this->date,
             'shares' => $this->shares,
+            '*',
             'price' => $this->price,
+            '=',
             'total' => (int) $this->value(),
         ];
     }

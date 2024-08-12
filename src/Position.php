@@ -61,12 +61,12 @@ class Position
         }
 
         $data[] = [
-            'CURRENT VALUE',
+            '          ',
             $this->transactions->shares(),
             '*',
             $this->price,
             '=',
-            $this->currentValue(),
+            (int) $this->currentValue(),
             '',
         ];
 
@@ -78,11 +78,11 @@ class Position
             '',
             '',
             '',
-            $difference,
+            (int) $difference,
             sprintf('(%+.1f%%)', 100 * $difference / $this->transactions->total())
         ];
 
-        return (string) new Table($data) . "\n";
+        return "CURRENT VALUE\n" . new Table($data) . "\n";
     }
 
     public function dividends() : string
@@ -119,6 +119,6 @@ class Position
             'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->currentValue()),
         ];
 
-        return "DIVIDENDS\n" . (new Table($data));
+        return "DIVIDENDS\n" . new Table($data) . "\n";
     }
 }

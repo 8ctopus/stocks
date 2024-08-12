@@ -88,13 +88,15 @@ class Transactions
             $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
             $data[] = [
-                'date' => "POSITION COST",
+                'date' => "COST",
                 'shares' => $shares,
+                '*',
                 'price' => "{$price}",
+                '=',
                 'total' => "{$total}",
             ];
         }
 
-        return (string) new Table($data);
+        return "TRANSACTIONS\n" . new Table($data) . "\n";
     }
 }
