@@ -92,7 +92,7 @@ class Position
             sprintf('(%+.1f%%)', 100 * $difference / $this->transactions->total())
         ];
 
-        return "CURRENT VALUE\n" . new Table($data) . "\n";
+        return new Table($data, 'CURRENT VALUE') . "\n";
     }
 
     public function dividends() : string
@@ -129,6 +129,6 @@ class Position
             'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->currentValue()),
         ];
 
-        return "DIVIDENDS\n" . new Table($data) . "\n";
+        return new Table($data, 'DIVIDENDS') . "\n";
     }
 }
