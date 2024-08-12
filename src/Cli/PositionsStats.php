@@ -8,7 +8,7 @@ use Swew\Cli\Command;
 
 class PositionsStats extends Command
 {
-    const NAME = 'positions:stats {ticker}';
+    const NAME = 'positions:stats {ticker= (str)}';
     const DESCRIPTION = 'Stats for position';
 
     public function __invoke() : int
@@ -22,7 +22,7 @@ class PositionsStats extends Command
                 continue;
             }
 
-            $this->output->writeLn($position->report('transactions') . $position->report('profit') . $position->report('dividends'));
+            $this->output->writeLn($position->ticker() . "\n" /*. $position->report('transactions')*/ . $position->report('profit') . $position->report('dividends'));
         }
 
         return self::SUCCESS;
