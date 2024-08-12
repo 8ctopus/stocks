@@ -1,5 +1,6 @@
 todo
 
-- add acquisition cost
-- add serialize
-- add load/save
+- add total value
+- add total acquisition cost
+- add total dividends paid
+- add fees
