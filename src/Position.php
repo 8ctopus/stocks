@@ -32,6 +32,11 @@ class Position
         return $this->ticker;
     }
 
+    public function shares() : int
+    {
+        return $this->transactions->shares();
+    }
+
     public function currentValue() : float
     {
         return $this->transactions->shares() * $this->price;

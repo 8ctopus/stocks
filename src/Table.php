@@ -7,15 +7,17 @@ namespace Oct8pus\Stocks;
 class Table
 {
     private readonly array $data;
+    private readonly ?string $title;
 
-    public function __construct(array $data)
+    public function __construct(array $data, ?string $title = null)
     {
         $this->data = $data;
+        $this->title = $title;
     }
 
     public function render() : string
     {
-        $output = '';
+        $output = isset($this->title) ? "{$this->title}\n" : '';
         $widths = $this->calculateWidth();
 
         foreach ($this->data as $row) {
