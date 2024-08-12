@@ -95,6 +95,6 @@ class Transactions
             ];
         }
 
-        return (new Table($data))->render();
+        return (string) new Table($data);
     }
 }
