@@ -88,16 +88,13 @@ class Transactions
                 $this->total(),
             ];
         } else {
-            $price = sprintf('%6.2f', $this->averageSharePrice());
-            $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
-
             $data[] = [
                 "COST",
                 $shares,
                 '*',
-                $price,
+                $this->averageSharePrice(),
                 '=',
-                $total,
+                (int) $this->total(),
             ];
         }
 
