@@ -42,6 +42,27 @@ class Position
         return $this->transactions->shares() * $this->price;
     }
 
+    public function acquistionCost() : float
+    {
+        return $this->transactions->total();
+    }
+
+    public function dividendsPaid() : string
+    {
+        $total = 0;
+
+        foreach ($this->history as $item) {
+            $date = $item->date();
+            $shares = $this->transactions->sharesOn($date);
+
+            $dividendPerShare = $item->dividend();
+            $dividend = $shares * $dividendPerShare;
+            $total += $dividend;
+        }
+
+        return $total;
+    }
+
     public function sharesOn(DateTime $date) : int
     {
         return $this->transactions->sharesOn($date);
@@ -51,20 +72,20 @@ class Position
     {
         switch ($type) {
             case 'transactions':
-                return $this->transactions->detailed();
+                return $this->transactions->report();
 
             case 'profit':
-                return $this->profit();
+                return $this->reportSharePriceProfit();
 
             case 'dividends':
-                return $this->dividends();
+                return $this->reportDividends();
 
             default:
                 throw new Exception();
         }
     }
 
-    private function profit() : string
+    private function reportSharePriceProfit() : string
     {
         if ($this->price === null) {
             throw new Exception('stock price not set');
@@ -95,7 +116,7 @@ class Position
         return new Table($data, 'CURRENT VALUE') . "\n";
     }
 
-    public function dividends() : string
+    public function reportDividends() : string
     {
         $data = [];
         $total = 0;

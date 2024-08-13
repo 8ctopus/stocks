@@ -32,6 +32,24 @@ class Transactions
         return $units;
     }
 
+    public function total() : float
+    {
+        $total = 0;
+
+        foreach ($this->list as $transaction) {
+            $total += $transaction->value();
+        }
+
+        return $total;
+    }
+
+    public function averageSharePrice() : float
+    {
+        $shares = $this->shares();
+
+        return $shares ? $this->total() / $shares : $this->total();
+    }
+
     public function sharesOn(DateTime $date) : int
     {
         $units = 0;
@@ -47,25 +65,7 @@ class Transactions
         return $units;
     }
 
-    public function total() : float
-    {
-        $total = 0;
-
-        foreach ($this->list as $transaction) {
-            $total += $transaction->value();
-        }
-
-        return $total;
-    }
-
-    public function price() : float
-    {
-        $shares = $this->shares();
-
-        return $shares ? $this->total() / $shares : $this->total();
-    }
-
-    public function detailed() : string
+    public function report() : string
     {
         $data = [];
 
@@ -84,7 +84,7 @@ class Transactions
                 'total' => $this->total(),
             ];
         } else {
-            $price = sprintf('%6.2f', $this->price());
+            $price = sprintf('%6.2f', $this->averageSharePrice());
             $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
             $data[] = [
