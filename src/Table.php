@@ -18,13 +18,18 @@ class Table
     public function render() : string
     {
         $output = isset($this->title) ? "{$this->title}\n" : '';
-        $widths = $this->calculateWidth();
+        [$width, $totalWidth] = $this->measure();
 
         foreach ($this->data as $row) {
             $index = 0;
 
             foreach ($row as $cell) {
-                $output .= str_pad($this->toStr($cell), $widths[$index] + ($index ? 1 : 0), ' ', STR_PAD_LEFT);
+                if ($index === 0 && $cell === '-') {
+                    $output .= str_pad('', $totalWidth, '-', STR_PAD_LEFT);
+                    break;
+                }
+
+                $output .= str_pad($this->toStr($cell), $width[$index] + ($index ? 1 : 0), ' ', STR_PAD_LEFT);
                 ++$index;
             }
 
@@ -34,11 +39,15 @@ class Table
         return $output;
     }
 
-    private function calculateWidth() : array
+    private function measure() : array
     {
         $widths = [];
 
         foreach ($this->data as $row) {
+            if (!isset($columns)) {
+                $columns = count($row);
+            }
+
             $index = 0;
 
             foreach ($row as $cell) {
@@ -47,7 +56,10 @@ class Table
             }
         }
 
-        return $widths;
+        return [
+            $widths,
+            array_sum($widths) + $columns -1,
+        ];
     }
 
     private function toStr(mixed $cell) : string

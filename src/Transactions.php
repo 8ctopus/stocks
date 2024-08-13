@@ -74,26 +74,30 @@ class Transactions
             $data[] = $transaction->data();
         }
 
+        $data[] = [
+            '-',
+        ];
+
         $shares = $this->shares();
 
         if ($shares === 0) {
             $data[] = [
-                'date' => 'PROFIT',
-                'shares' => '',
-                'price' => '',
-                'total' => $this->total(),
+                'PROFIT',
+                '',
+                '',
+                $this->total(),
             ];
         } else {
             $price = sprintf('%6.2f', $this->averageSharePrice());
             $total = str_pad(number_format($this->total(), 0, '.', '\''), 8, ' ', STR_PAD_LEFT);
 
             $data[] = [
-                'date' => "COST",
-                'shares' => $shares,
+                "COST",
+                $shares,
                 '*',
-                'price' => "{$price}",
+                $price,
                 '=',
-                'total' => "{$total}",
+                $total,
             ];
         }
 
