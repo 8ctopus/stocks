@@ -8,7 +8,7 @@ use Swew\Cli\Command;
 
 class Transactions extends Command
 {
-    const NAME = 'transactions {ticker (str)}';
+    const NAME = 'transactions {ticker= (str)}';
     const DESCRIPTION = 'Transactions for position';
 
     public function __invoke() : int
@@ -18,11 +18,11 @@ class Transactions extends Command
         $ticker = $this->arg('ticker')->getValue();
 
         foreach ($commander->portfolio() as $position) {
-            if ($ticker !== $position->ticker()) {
+            if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
-            $this->output->writeLn($position->ticker() . "\n" . $position->report('transactions'));
+            $this->output->writeLn($position->report('transactions'));
         }
 
         return self::SUCCESS;

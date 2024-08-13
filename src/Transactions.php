@@ -65,7 +65,7 @@ class Transactions
         return $units;
     }
 
-    public function report() : string
+    public function report(string $title = '') : string
     {
         $data = [];
 
@@ -98,6 +98,10 @@ class Transactions
             ];
         }
 
-        return "TRANSACTIONS\n" . new Table($data);
+        if (empty($title)) {
+            $title = "TRANSACTIONS";
+        }
+
+        return "{$title}\n" . new Table($data);
     }
 }

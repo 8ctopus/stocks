@@ -72,7 +72,7 @@ class Position
     {
         switch ($type) {
             case 'transactions':
-                return $this->transactions->report();
+                return $this->transactions->report("{$this->ticker} TRANSACTIONS");
 
             case 'profit':
                 return $this->reportSharePriceProfit();
