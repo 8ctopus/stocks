@@ -98,6 +98,6 @@ class Transactions
             ];
         }
 
-        return "TRANSACTIONS\n" . new Table($data) . "\n";
+        return "TRANSACTIONS\n" . new Table($data);
     }
 }
