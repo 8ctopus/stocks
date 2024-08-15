@@ -140,6 +140,8 @@ class Position
             ];
         }
 
+        $data[] = ['-'];
+
         $data[] = [
             'date' => '',
             'shares' => '',
@@ -150,6 +152,6 @@ class Position
             'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->currentValue()),
         ];
 
-        return (string) new Table($data, 'DIVIDENDS');
+        return (string) new Table($data, "{$this->ticker} DIVIDENDS");
     }
 }

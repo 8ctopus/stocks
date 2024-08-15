@@ -22,7 +22,7 @@ class Dividends extends Command
                 continue;
             }
 
-            $this->output->writeLn($position->ticker() . "\n" . $position->report('dividends'));
+            $this->output->writeLn($position->report('dividends'));
         }
 
         return self::SUCCESS;
