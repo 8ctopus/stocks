@@ -36,7 +36,6 @@ class Dividends extends Command
                 [$total],
             ];
 
-
             $this->output->writeLn((string) new Table($data, ''));
         }
 
