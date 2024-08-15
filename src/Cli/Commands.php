@@ -10,12 +10,12 @@ use Swew\Cli\SwewCommander;
 class Commands extends SwewCommander
 {
     protected array $commands = [
-        Dividends::class,
-        ImportPosition::class,
         PositionsList::class,
+        Dividends::class,
         PositionsStats::class,
         Transactions::class,
         UpdatePrice::class,
+        ImportPosition::class,
     ];
 
     protected readonly Portfolio $portfolio;
