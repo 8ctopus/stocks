@@ -154,4 +154,20 @@ class Position
 
         return (string) new Table($data, "{$this->ticker} DIVIDENDS");
     }
+
+    public function dividends() : int
+    {
+        $total = 0;
+
+        foreach ($this->history as $item) {
+            $date = $item->date();
+            $shares = $this->transactions->sharesOn($date);
+
+            $dividendPerShare = $item->dividend();
+            $dividend = $shares * $dividendPerShare;
+            $total += $dividend;
+        }
+
+        return (int) $total;
+    }
 }
