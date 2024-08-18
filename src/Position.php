@@ -42,7 +42,7 @@ class Position
         return $this->transactions->shares() * $this->price;
     }
 
-    public function acquistionCost() : float
+    public function acquisitionCost() : float
     {
         return $this->transactions->total();
     }

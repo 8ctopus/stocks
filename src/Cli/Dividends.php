@@ -9,7 +9,7 @@ use Swew\Cli\Command;
 
 class Dividends extends Command
 {
-    const NAME = 'dividends {ticker= (str)}';
+    const NAME = 'dividends {--summary (bool)} {ticker= (str)}';
     const DESCRIPTION = 'Dividends for position';
 
     public function __invoke() : int
@@ -17,23 +17,31 @@ class Dividends extends Command
         $commander = $this->getCommander();
 
         $ticker = $this->arg('ticker')->getValue();
+        $summary = $this->arg('summary')->getValue();
 
-        $total = 0;
+        $dividends = 0;
+        $acquisitionCost = 0;
+        $currentValue = 0;
 
         foreach ($commander->portfolio() as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
-            $total += $position->dividends();
-            $this->output->writeLn($position->report('dividends'));
+            $dividends += $position->dividends();
+            $acquisitionCost += $position->acquisitionCost();
+            $currentValue += $position->currentValue();
+
+            if (!$summary) {
+                $this->output->writeLn($position->report('dividends'));
+            }
         }
 
         if (!$ticker) {
             $data = [
-                ['TOTAL DIVIDENDS'],
-                ['-'],
-                [$total],
+                ['TOTAL DIVIDENDS', $dividends],
+                ['ACQUISTION COST', $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)],
+                ['CURRENT VALUE', $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)],
             ];
 
             $this->output->writeLn((string) new Table($data, ''));
