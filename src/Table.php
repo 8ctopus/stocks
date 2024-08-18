@@ -23,13 +23,15 @@ class Table
         foreach ($this->data as $row) {
             $index = 0;
 
-            foreach ($row as $cell) {
+            foreach ($row as $index => $cell) {
                 if ($index === 0 && $cell === '-') {
                     $output .= str_pad('', $totalWidth, '-', STR_PAD_LEFT);
                     break;
                 }
 
-                $output .= str_pad($this->toStr($cell), $width[$index] + ($index ? 1 : 0), ' ', STR_PAD_LEFT);
+                $padding = ($index === 0 && is_string($cell)) ? STR_PAD_RIGHT : STR_PAD_LEFT;
+
+                $output .= str_pad($this->toStr($cell), $width[$index] + ($index ? 1 : 0), ' ', $padding);
                 ++$index;
             }
 
