@@ -116,13 +116,18 @@ class Position
         return new Table($data, 'CURRENT VALUE') . "\n";
     }
 
-    public function reportDividends() : string
+    public function reportDividends(?int $year = null) : string
     {
         $data = [];
         $total = 0;
 
         foreach ($this->history as $item) {
             $date = $item->date();
+
+            if ($year && $year !== (int) $date->format('Y')) {
+                continue;
+            }
+
             $shares = $this->transactions->sharesOn($date);
 
             $dividendPerShare = $item->dividend();
@@ -155,12 +160,17 @@ class Position
         return (string) new Table($data, "{$this->ticker} DIVIDENDS");
     }
 
-    public function dividends() : int
+    public function dividends(?int $year = null) : int
     {
         $total = 0;
 
         foreach ($this->history as $item) {
             $date = $item->date();
+
+            if ($year && $year !== (int) $date->format('Y')) {
+                continue;
+            }
+
             $shares = $this->transactions->sharesOn($date);
 
             $dividendPerShare = $item->dividend();

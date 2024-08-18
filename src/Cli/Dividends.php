@@ -9,43 +9,37 @@ use Swew\Cli\Command;
 
 class Dividends extends Command
 {
-    const NAME = 'dividends {--summary (bool)} {ticker= (str)}';
+    const NAME = 'dividends {--summary=false (bool)} {--year= (int)}';
     const DESCRIPTION = 'Dividends for position';
 
     public function __invoke() : int
     {
         $commander = $this->getCommander();
 
-        $ticker = $this->arg('ticker')->getValue();
         $summary = $this->arg('summary')->getValue();
+        $year = $this->arg('year')->getValue();
 
         $dividends = 0;
         $acquisitionCost = 0;
         $currentValue = 0;
 
         foreach ($commander->portfolio() as $position) {
-            if ($ticker && $ticker !== $position->ticker()) {
-                continue;
-            }
-
-            $dividends += $position->dividends();
+            $dividends += $position->dividends($year);
             $acquisitionCost += $position->acquisitionCost();
             $currentValue += $position->currentValue();
 
             if (!$summary) {
-                $this->output->writeLn($position->report('dividends'));
+                $this->output->writeLn($position->reportDividends($year));
             }
         }
 
-        if (!$ticker) {
-            $data = [
-                ['TOTAL DIVIDENDS', $dividends],
-                ['ACQUISTION COST', $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)],
-                ['CURRENT VALUE', $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)],
-            ];
+        $data = [
+            ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), $dividends],
+            ['ACQUISTION COST', (int) $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)],
+            ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)],
+        ];
 
-            $this->output->writeLn((string) new Table($data, ''));
-        }
+        $this->output->writeLn((string) new Table($data, ''));
 
         return self::SUCCESS;
     }
