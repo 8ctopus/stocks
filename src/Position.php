@@ -122,13 +122,35 @@ class Position
         $profit = $currentValue - $acquisitionCost;
 
         $data[] = [
-            'UNREALIZED PROFIT',
+            'SHARE PRICE',
             '',
             '',
             '',
             '',
             (int) $profit,
             sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost)
+        ];
+
+        $dividends = $this->dividends();
+
+        $data[] = [
+            'DIVIDENDS',
+            '',
+            '',
+            '',
+            '',
+            (int) $dividends,
+            sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)
+        ];
+
+        $data[] = [
+            'TOTAL',
+            '',
+            '',
+            '',
+            '',
+            (int) ($profit + $dividends),
+            sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost)
         ];
 
         return new Table($data) . "\n";

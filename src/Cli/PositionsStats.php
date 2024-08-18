@@ -24,7 +24,7 @@ class PositionsStats extends Command
 
             $this->output->writeLn($position->ticker());
             $this->output->writeLn($position->report('profit'));
-            $this->output->writeLn($position->report('dividends'));
+            //$this->output->writeLn($position->report('dividends'));
         }
 
         return self::SUCCESS;
