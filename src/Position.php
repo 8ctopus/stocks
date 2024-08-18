@@ -96,11 +96,9 @@ class Position
             throw new Exception('stock price not set');
         }
 
-        $currentValue = $this->currentValue();
-
         $data[] = [
-            'CURRENT VALUE',
-            (int) $currentValue,
+            'SHARES',
+            (int) $this->shares(),
         ];
 
         $acquisitionCost = $this->acquisitionCost();
@@ -110,10 +108,17 @@ class Position
             (int) $acquisitionCost,
         ];
 
+        $currentValue = $this->currentValue();
+
+        $data[] = [
+            'CURRENT VALUE',
+            (int) $currentValue,
+        ];
+
         $profit = $currentValue - $acquisitionCost;
 
         $data[] = [
-            'SHARE PRICE',
+            'SHARE PRICE PROFIT',
             (int) $profit,
             sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost)
         ];
@@ -127,12 +132,12 @@ class Position
         ];
 
         $data[] = [
-            'TOTAL',
+            'TOTAL PROFIT',
             (int) ($profit + $dividends),
             sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost)
         ];
 
-        return new Table($data) . "\n";
+        return (string) new Table($data);
     }
 
     public function reportDividends(?int $year = null) : string
