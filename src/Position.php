@@ -96,18 +96,19 @@ class Position
             throw new Exception('stock price not set');
         }
 
+        $currentValue = $this->currentValue();
+
         $data[] = [
             'CURRENT VALUE',
             $this->transactions->shares(),
             '*',
             $this->price,
             '=',
-            (int) $this->currentValue(),
+            (int) $currentValue,
             '',
         ];
 
         $acquisitionCost = $this->acquisitionCost();
-        $profit = $this->currentValue() - $acquisitionCost;
 
         $data[] = [
             'ACQUISITION COST',
@@ -117,6 +118,8 @@ class Position
             '',
             (int) $acquisitionCost,
         ];
+
+        $profit = $currentValue - $acquisitionCost;
 
         $data[] = [
             'UNREALIZED PROFIT',
@@ -194,5 +197,10 @@ class Position
         }
 
         return (int) $total;
+    }
+
+    public function sharePriceProfit() : float
+    {
+        return $this->currentValue() - $this->acquisitionCost();
     }
 }
