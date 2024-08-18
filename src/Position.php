@@ -125,7 +125,7 @@ class Position
             '',
             '',
             (int) $profit,
-            sprintf('(%+.1f%%)', 100 * $profit / $this->transactions->total())
+            sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost)
         ];
 
         return new Table($data) . "\n";
@@ -169,7 +169,7 @@ class Position
             'dividend per share' => '',
             '=' => '',
             'dividend' => (int) $total,
-            'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->currentValue()),
+            'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->acquisitionCost()),
         ];
 
         return (string) new Table($data, "{$this->ticker} DIVIDENDS");
