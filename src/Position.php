@@ -73,31 +73,14 @@ class Position
         return $this->transactions->sharesOn($date);
     }
 
-    public function report(string $type) : string
-    {
-        switch ($type) {
-            case 'transactions':
-                return $this->transactions->report("{$this->ticker} TRANSACTIONS");
-
-            case 'profit':
-                return $this->reportSharePriceProfit();
-
-            case 'dividends':
-                return $this->reportDividends();
-
-            default:
-                throw new Exception();
-        }
-    }
-
-    private function reportSharePriceProfit() : string
+    public function summary() : string
     {
         if ($this->price === null) {
             throw new Exception('stock price not set');
         }
 
         $data[] = [
-            'SHARES',
+            $this->ticker,
             (int) $this->shares(),
         ];
 
