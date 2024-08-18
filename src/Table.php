@@ -25,7 +25,7 @@ class Table
 
             foreach ($row as $index => $cell) {
                 if ($index === 0 && $cell === '-') {
-                    $output .= str_pad('', $totalWidth, '-', STR_PAD_LEFT);
+                    $output .= str_pad('', $totalWidth + 1, '-', STR_PAD_LEFT);
                     break;
                 }
 
