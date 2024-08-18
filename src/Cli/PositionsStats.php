@@ -9,7 +9,7 @@ use Swew\Cli\Command;
 class PositionsStats extends Command
 {
     const NAME = 'positions:stats {ticker= (str)}';
-    const DESCRIPTION = 'Stats for position';
+    const DESCRIPTION = 'Positions stats';
 
     public function __invoke() : int
     {

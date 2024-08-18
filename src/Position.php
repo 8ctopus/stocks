@@ -97,7 +97,7 @@ class Position
         }
 
         $data[] = [
-            '          ',
+            'CURRENT VALUE',
             $this->transactions->shares(),
             '*',
             $this->price,
@@ -106,19 +106,29 @@ class Position
             '',
         ];
 
-        $difference = $this->currentValue() - $this->transactions->total();
+        $acquisitionCost = $this->acquisitionCost();
+        $profit = $this->currentValue() - $acquisitionCost;
 
         $data[] = [
-            'UNREALIZED',
+            'ACQUISITION COST',
             '',
             '',
             '',
             '',
-            (int) $difference,
-            sprintf('(%+.1f%%)', 100 * $difference / $this->transactions->total())
+            (int) $acquisitionCost,
         ];
 
-        return new Table($data, 'CURRENT VALUE') . "\n";
+        $data[] = [
+            'UNREALIZED PROFIT',
+            '',
+            '',
+            '',
+            '',
+            (int) $profit,
+            sprintf('(%+.1f%%)', 100 * $profit / $this->transactions->total())
+        ];
+
+        return new Table($data) . "\n";
     }
 
     public function reportDividends(?int $year = null) : string
