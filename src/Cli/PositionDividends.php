@@ -7,10 +7,10 @@ namespace Oct8pus\Stocks\Cli;
 use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
-class Dividends extends Command
+class PositionDividends extends Command
 {
-    const NAME = 'dividends {--summary=false (bool)} {--year= (int)}';
-    const DESCRIPTION = 'Dividends for position';
+    const NAME = 'position:dividends {--summary=false (bool)} {--year= (int)}';
+    const DESCRIPTION = 'Position dividends';
 
     public function __invoke() : int
     {

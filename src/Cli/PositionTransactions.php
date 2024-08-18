@@ -6,9 +6,9 @@ namespace Oct8pus\Stocks\Cli;
 
 use Swew\Cli\Command;
 
-class Transactions extends Command
+class PositionTransactions extends Command
 {
-    const NAME = 'transactions {ticker= (str)}';
+    const NAME = 'position:transactions {ticker= (str)}';
     const DESCRIPTION = 'Transactions for position';
 
     public function __invoke() : int
