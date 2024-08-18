@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Oct8pus\Stocks\Cli;
 
 use DateTime;
-use Exception;
 use Oct8pus\Stocks\Dividend;
 use Oct8pus\Stocks\DividendHistory;
 use Oct8pus\Stocks\Position;
@@ -13,9 +12,9 @@ use Oct8pus\Stocks\Transaction;
 use Oct8pus\Stocks\Transactions;
 use Swew\Cli\Command;
 
-class ImportPosition extends Command
+class PositionImport extends Command
 {
-    const NAME = 'positions:import {ticker (str)} {price (float)}';
+    const NAME = 'position:import {ticker (str)} {price (float)}';
     const DESCRIPTION = 'Import position';
 
     public function __invoke() : int

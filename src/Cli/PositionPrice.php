@@ -6,10 +6,10 @@ namespace Oct8pus\Stocks\Cli;
 
 use Swew\Cli\Command;
 
-class UpdatePrice extends Command
+class PositionPrice extends Command
 {
-    const NAME = 'update:price {--ticker= (str)}';
-    const DESCRIPTION = 'Update stock price';
+    const NAME = 'position:price {--ticker= (str)}';
+    const DESCRIPTION = 'Update position price';
 
     public function __invoke() : int
     {
