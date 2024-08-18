@@ -100,22 +100,13 @@ class Position
 
         $data[] = [
             'CURRENT VALUE',
-            $this->transactions->shares(),
-            '*',
-            $this->price,
-            '=',
             (int) $currentValue,
-            '',
         ];
 
         $acquisitionCost = $this->acquisitionCost();
 
         $data[] = [
             'ACQUISITION COST',
-            '',
-            '',
-            '',
-            '',
             (int) $acquisitionCost,
         ];
 
@@ -123,10 +114,6 @@ class Position
 
         $data[] = [
             'SHARE PRICE',
-            '',
-            '',
-            '',
-            '',
             (int) $profit,
             sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost)
         ];
@@ -135,20 +122,12 @@ class Position
 
         $data[] = [
             'DIVIDENDS',
-            '',
-            '',
-            '',
-            '',
             (int) $dividends,
             sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)
         ];
 
         $data[] = [
             'TOTAL',
-            '',
-            '',
-            '',
-            '',
             (int) ($profit + $dividends),
             sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost)
         ];
