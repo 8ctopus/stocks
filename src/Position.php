@@ -142,26 +142,25 @@ class Position
             $total += $dividend;
 
             $data[] = [
-                'date' => $date,
-                'shares' => $shares,
-                '*' => '*',
-                'dividend per share' => $dividendPerShare,
-                '=' => '=',
-                'dividend' => (int) round($dividend, 0, PHP_ROUND_HALF_UP),
-                'percentage' => '',
+                $date,
+                $shares,
+                '*',
+                $dividendPerShare,
+                '=',
+                (int) round($dividend, 0, PHP_ROUND_HALF_UP),
             ];
         }
 
         $data[] = ['-'];
 
         $data[] = [
-            'date' => '',
-            'shares' => '',
-            '*' => '',
-            'dividend per share' => '',
-            '=' => '',
-            'dividend' => (int) $total,
-            'percentage' => sprintf('(%+.1f%%)', 100 * $total / $this->acquisitionCost()),
+            '',
+            '',
+            '',
+            '',
+            '',
+            (int) $total,
+            sprintf('(%+.1f%%)', 100 * $total / $this->acquisitionCost()),
         ];
 
         return (string) new Table($data, "{$this->ticker} DIVIDENDS");
