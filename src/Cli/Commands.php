@@ -12,7 +12,7 @@ class Commands extends SwewCommander
     protected array $commands = [
         PositionsList::class,
         Dividends::class,
-        PositionsStats::class,
+        PositionSummary::class,
         Transactions::class,
         UpdatePrice::class,
         ImportPosition::class,

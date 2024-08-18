@@ -6,10 +6,10 @@ namespace Oct8pus\Stocks\Cli;
 
 use Swew\Cli\Command;
 
-class PositionsStats extends Command
+class PositionSummary extends Command
 {
-    const NAME = 'positions:stats {ticker= (str)}';
-    const DESCRIPTION = 'Positions stats';
+    const NAME = 'position:summary {ticker= (str)}';
+    const DESCRIPTION = 'Position summary';
 
     public function __invoke() : int
     {
