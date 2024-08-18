@@ -37,7 +37,7 @@ class PositionDividends extends Command
             if ($summary) {
                 $data[] = [
                     $position->ticker(),
-                    (int) $position->dividends(),
+                    (int) $position->dividends($year),
                 ];
             } else {
                 $this->output->writeLn($position->reportDividends($year));
