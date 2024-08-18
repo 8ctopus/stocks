@@ -9,7 +9,7 @@ use Swew\Cli\Command;
 class PositionTransactions extends Command
 {
     const NAME = 'position:transactions {ticker= (str)}';
-    const DESCRIPTION = 'Transactions for position';
+    const DESCRIPTION = 'Position transactions';
 
     public function __invoke() : int
     {
