@@ -7,16 +7,22 @@ namespace Oct8pus\Stocks\Cli;
 use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
-class PositionsList extends Command
+class PositionList extends Command
 {
-    const NAME = 'positions:list';
-    const DESCRIPTION = 'List positions';
+    const NAME = 'position:list {ticker= (str)}';
+    const DESCRIPTION = 'List position';
 
     public function __invoke() : int
     {
         $commander = $this->getCommander();
 
+        $ticker = $this->arg('ticker')->getValue();
+
         foreach ($commander->portfolio() as $position) {
+            if ($ticker && $ticker !== $position->ticker()) {
+                continue;
+            }
+
             $data[] = [
                 $position->ticker(),
                 $position->shares(),

@@ -10,9 +10,9 @@ use Swew\Cli\SwewCommander;
 class Commands extends SwewCommander
 {
     protected array $commands = [
-        PositionsList::class,
-        Dividends::class,
         PositionSummary::class,
+        PositionList::class,
+        Dividends::class,
         Transactions::class,
         UpdatePrice::class,
         ImportPosition::class,
