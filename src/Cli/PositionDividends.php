@@ -23,7 +23,7 @@ class PositionDividends extends Command
 
         $dividends = 0;
         $acquisitionCost = 0;
-        $currentValue = 0;
+        //$currentValue = 0;
 
         foreach ($commander->portfolio() as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
@@ -32,7 +32,7 @@ class PositionDividends extends Command
 
             $dividends += $position->dividends($year);
             $acquisitionCost += $position->acquisitionCost();
-            $currentValue += $position->currentValue();
+            //$currentValue += $position->currentValue();
 
             if (!$summary) {
                 $this->output->writeLn($position->reportDividends($year));
@@ -42,7 +42,7 @@ class PositionDividends extends Command
         $data = [
             ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), (int) $dividends],
             ['ACQUISTION COST', (int) $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)],
-            ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)],
+            //['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)],
         ];
 
         $this->output->writeLn((string) new Table($data, ''));
