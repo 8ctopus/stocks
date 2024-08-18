@@ -22,7 +22,9 @@ class PositionsStats extends Command
                 continue;
             }
 
-            $this->output->writeLn($position->ticker() . "\n" /*. $position->report('transactions')*/ . $position->report('profit') . $position->report('dividends'));
+            $this->output->writeLn($position->ticker());
+            $this->output->writeLn($position->report('profit'));
+            $this->output->writeLn($position->report('dividends'));
         }
 
         return self::SUCCESS;

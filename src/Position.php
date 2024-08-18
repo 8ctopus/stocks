@@ -178,7 +178,7 @@ class Position
         return (string) new Table($data, "{$this->ticker} DIVIDENDS");
     }
 
-    public function dividends(?int $year = null) : int
+    public function dividends(?int $year = null) : float
     {
         $total = 0;
 
@@ -196,7 +196,7 @@ class Position
             $total += $dividend;
         }
 
-        return (int) $total;
+        return $total;
     }
 
     public function sharePriceProfit() : float
