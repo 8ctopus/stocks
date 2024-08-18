@@ -8,7 +8,7 @@ use Swew\Cli\Command;
 
 class UpdatePrice extends Command
 {
-    const NAME = 'stocks:price {ticker (str)} {price (float)}';
+    const NAME = 'update:price {--ticker= (str)}';
     const DESCRIPTION = 'Update stock price';
 
     public function __invoke() : int
@@ -17,13 +17,15 @@ class UpdatePrice extends Command
         $portfolio = $commander->portfolio();
 
         $ticker = $this->arg('ticker')->getValue();
-        $price = $this->arg('price')->getValue();
 
         foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
+            $currentTicker = $position->ticker();
+
+            $price = (float) $this->output->ask("insert price for {$currentTicker}: ");
             $position->setPrice($price);
         }
 
