@@ -43,6 +43,21 @@ class Transactions
         return $total;
     }
 
+    public function totalOn(DateTime $date) : float
+    {
+        $total = 0;
+
+        foreach ($this->list as $transaction) {
+            if ($transaction->date() > $date) {
+                continue;
+            }
+
+            $total += $transaction->value();
+        }
+
+        return $total;
+    }
+
     public function averageSharePrice() : float
     {
         $shares = $this->shares();

@@ -52,6 +52,11 @@ class Position
         return $this->transactions->total();
     }
 
+    public function acquisitionCostOn(DateTime $date) : float
+    {
+        return $this->transactions->totalOn($date);
+    }
+
     public function dividendsPaid() : string
     {
         $total = 0;

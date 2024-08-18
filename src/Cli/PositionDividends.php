@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
+use DateTime;
 use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
@@ -21,8 +22,8 @@ class PositionDividends extends Command
         $year = $this->arg('year')->getValue();
         $year = $year > 0 ? $year : null;
 
-        $dividends = 0;
-        $acquisitionCost = 0;
+        $totalDividends = 0;
+        $totalAcquistionCost = 0;
         $currentValue = 0;
 
         foreach ($commander->portfolio() as $position) {
@@ -30,14 +31,18 @@ class PositionDividends extends Command
                 continue;
             }
 
-            $dividends += $position->dividends($year);
-            $acquisitionCost += $position->acquisitionCost();
+            $dividends = $position->dividends($year);
+            $totalDividends += $dividends;
+            $acquistionCost = $position->acquisitionCostOn(new DateTime('2024-04-17'));
+            $totalAcquistionCost += $acquistionCost;
             $currentValue += $position->currentValue();
 
             if ($summary) {
                 $data[] = [
                     $position->ticker(),
                     (int) $position->dividends($year),
+                    //(int) $acquistionCost,
+                    sprintf('(%+.1f%%)', 100 * $dividends / $acquistionCost),
                 ];
             } else {
                 $this->output->writeLn($position->reportDividends($year));
@@ -48,9 +53,9 @@ class PositionDividends extends Command
             $data[] = ['-'];
         }
 
-        $data[] = ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), (int) $dividends];
-        $data[] = ['ACQUISTION COST', (int) $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)];
-        $data[] = ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)];
+        $data[] = ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), (int) $totalDividends];
+        $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost, sprintf('(%+.1f%%)', 100 * $totalDividends / $totalAcquistionCost)];
+        $data[] = ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $totalDividends / $currentValue)];
 
         $this->output->writeLn((string) new Table($data));
 
