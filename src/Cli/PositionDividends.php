@@ -34,18 +34,25 @@ class PositionDividends extends Command
             $acquisitionCost += $position->acquisitionCost();
             $currentValue += $position->currentValue();
 
-            if (!$summary) {
+            if ($summary) {
+                $data[] = [
+                    $position->ticker(),
+                    (int) $position->dividends(),
+                ];
+            } else {
                 $this->output->writeLn($position->reportDividends($year));
             }
         }
 
-        $data = [
-            ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), (int) $dividends],
-            ['ACQUISTION COST', (int) $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)],
-            ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)],
-        ];
+        if ($summary) {
+            $data[] = ['-'];
+        }
 
-        $this->output->writeLn((string) new Table($data, ''));
+        $data[] = ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), (int) $dividends];
+        $data[] = ['ACQUISTION COST', (int) $acquisitionCost, sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)];
+        $data[] = ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $dividends / $currentValue)];
+
+        $this->output->writeLn((string) new Table($data));
 
         return self::SUCCESS;
     }
