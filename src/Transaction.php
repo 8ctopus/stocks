@@ -37,12 +37,12 @@ class Transaction
     public function data() : array
     {
         return [
-            'date' => $this->date,
-            'shares' => $this->shares,
+            $this->date,
+            $this->shares,
             '*',
-            'price' => $this->price,
+            $this->price,
             '=',
-            'total' => (int) $this->value(),
+            (int) $this->value(),
         ];
     }
 

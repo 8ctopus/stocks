@@ -22,7 +22,7 @@ class PositionTransactions extends Command
                 continue;
             }
 
-            $this->output->writeLn($position->report('transactions'));
+            $this->output->writeLn($position->reportTransactions());
         }
 
         return self::SUCCESS;

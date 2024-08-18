@@ -82,8 +82,6 @@ class Transactions
 
     public function report(string $title = '') : string
     {
-        $data = [];
-
         for ($i = count($this->list); $i > 0; --$i) {
             $transaction = $this->list[$i - 1];
             $data[] = $transaction->data();

@@ -171,6 +171,11 @@ class Position
         return (string) new Table($data, "{$this->ticker} DIVIDENDS");
     }
 
+    public function reportTransactions() : string
+    {
+        return $this->transactions->report($this->ticker);
+    }
+
     public function dividends(?int $year = null) : float
     {
         $total = 0;
