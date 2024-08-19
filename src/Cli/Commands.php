@@ -15,6 +15,7 @@ class Commands extends SwewCommander
         PositionDividends::class,
         PositionTransactions::class,
         PositionPrice::class,
+        PositionCleanup::class,
         PositionImport::class,
     ];
 

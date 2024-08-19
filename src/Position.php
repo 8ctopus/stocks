@@ -201,4 +201,10 @@ class Position
     {
         return $this->currentValue() - $this->acquisitionCost();
     }
+
+    public function cleanup() : void
+    {
+        $this->transactions->sort();
+        $this->history->sort();
+    }
 }

@@ -117,4 +117,11 @@ class Transactions
 
         return "{$title}\n" . new Table($data);
     }
+
+    public function sort() : void
+    {
+        usort($this->list, function ($transaction1, $transactions2) : int {
+            return $transaction1->date() > $transactions2->date() ? +1 : -1;
+        });
+    }
 }
