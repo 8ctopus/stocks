@@ -14,7 +14,7 @@ use Swew\Cli\Command;
 
 class PositionImport extends Command
 {
-    const NAME = 'position:import {ticker (str)} {price (float)}';
+    const NAME = 'import {ticker (str)} {price (float)}';
     const DESCRIPTION = 'Import position';
 
     public function __invoke() : int

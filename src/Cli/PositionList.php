@@ -9,7 +9,7 @@ use Swew\Cli\Command;
 
 class PositionList extends Command
 {
-    const NAME = 'position:list {ticker= (str)}';
+    const NAME = 'list {ticker= (str)}';
     const DESCRIPTION = 'List position';
 
     public function __invoke() : int

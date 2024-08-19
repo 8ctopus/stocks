@@ -10,7 +10,7 @@ use Swew\Cli\Command;
 
 class PositionDividends extends Command
 {
-    const NAME = 'position:dividends {--summary=false (bool)} {--year=-1 (int)} {ticker= (str)}';
+    const NAME = 'dividends {--summary=false (bool)} {--year=-1 (int)} {ticker= (str)}';
     const DESCRIPTION = 'Position dividends';
 
     public function __invoke() : int
