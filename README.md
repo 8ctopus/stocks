@@ -1,4 +1,26 @@
-todo
+# stocks
 
+php-stocks is a command line tool to measure the performance of a portfolio composed of stocks.
+
+## how to use
+
+```txt
+$ php demo.php
+
+Available commands:
+ summary: Position summary
+ list: List position
+ dividends: Position dividends
+ transactions: Position transactions
+ price: Update position price
+ cleanup: Cleanup position
+ import: Import position
+```
+
+## todo
+
+- add price history
+- add transaction note
 - add fees
 - stay inside loop
+- add colors
