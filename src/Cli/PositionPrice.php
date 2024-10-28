@@ -25,7 +25,7 @@ class PositionPrice extends Command
 
             $currentTicker = $position->ticker();
 
-            $price = (float) $this->output->ask("insert price for {$currentTicker}: ");
+            $price = (float) $this->output->ask("update price for {$currentTicker}: ");
             $position->setPrice($price);
         }
 
