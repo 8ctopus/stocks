@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Oct8pus\Stocks;
 
 use ArrayIterator;
-use Exception;
 use IteratorAggregate;
 use Traversable;
 
@@ -36,15 +35,76 @@ class Portfolio implements IteratorAggregate
 
     public function currentValue() : float
     {
-        throw new Exception('not implemented');
+        $currentValue = 0;
+
+        foreach ($this->positions as $position) {
+            $currentValue += $position->currentValue();
+        }
+
+        return $currentValue;
     }
 
-    public function report(string $type) : string
+    public function acquisitionCost() : float
     {
-        switch ($type) {
-            default:
-                throw new Exception('not implemented');
+        $acquisitionCost = 0;
+
+        foreach ($this->positions as $position) {
+            $acquisitionCost += $position->acquisitionCost();
         }
+
+        return $acquisitionCost;
+    }
+
+    public function dividends() : float
+    {
+        $dividends = 0;
+
+        foreach ($this->positions as $position) {
+            $dividends += $position->dividends();
+        }
+
+        return $dividends;
+    }
+
+    public function summary() : string
+    {
+        $acquisitionCost = $this->acquisitionCost();
+
+        $data[] = [
+            'ACQUISITION COST',
+            (int) $acquisitionCost,
+        ];
+
+        $currentValue = $this->currentValue();
+
+        $data[] = [
+            'CURRENT VALUE',
+            (int) $currentValue,
+        ];
+
+        $profit = $currentValue - $acquisitionCost;
+
+        $data[] = [
+            'SHARE PRICE PROFIT',
+            (int) $profit,
+            sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost),
+        ];
+
+        $dividends = $this->dividends();
+
+        $data[] = [
+            'DIVIDENDS',
+            (int) $dividends,
+            sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost),
+        ];
+
+        $data[] = [
+            'TOTAL PROFIT',
+            (int) ($profit + $dividends),
+            sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost),
+        ];
+
+        return (string) new Table($data);
     }
 
     public function getIterator() : Traversable

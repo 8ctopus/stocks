@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
+use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
 class PositionSummary extends Command
@@ -15,14 +16,20 @@ class PositionSummary extends Command
     {
         $commander = $this->getCommander();
 
+        $portfolio = $commander->portfolio();
+
         $ticker = $this->arg('ticker')->getValue();
 
-        foreach ($commander->portfolio() as $position) {
+        foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
             $this->output->writeLn($position->summary());
+        }
+
+        if (!$ticker) {
+            $this->output->writeLn($portfolio->summary());
         }
 
         return self::SUCCESS;
