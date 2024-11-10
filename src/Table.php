@@ -15,6 +15,11 @@ class Table
         $this->title = $title;
     }
 
+    public function __toString() : string
+    {
+        return $this->render();
+    }
+
     public function render() : string
     {
         $output = isset($this->title) ? "{$this->title}\n" : '';
@@ -60,7 +65,7 @@ class Table
 
         return [
             $widths,
-            array_sum($widths) + $columns -1,
+            array_sum($widths) + $columns - 1,
         ];
     }
 
@@ -85,10 +90,5 @@ class Table
         }
 
         return $value;
-    }
-
-    public function __toString() : string
-    {
-        return $this->render();
     }
 }

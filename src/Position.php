@@ -108,7 +108,7 @@ class Position
         $data[] = [
             'SHARE PRICE PROFIT',
             (int) $profit,
-            sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost)
+            sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost),
         ];
 
         $dividends = $this->dividends();
@@ -116,13 +116,13 @@ class Position
         $data[] = [
             'DIVIDENDS',
             (int) $dividends,
-            sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost)
+            sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost),
         ];
 
         $data[] = [
             'TOTAL PROFIT',
             (int) ($profit + $dividends),
-            sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost)
+            sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost),
         ];
 
         return (string) new Table($data);

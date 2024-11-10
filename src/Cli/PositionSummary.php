@@ -8,8 +8,8 @@ use Swew\Cli\Command;
 
 class PositionSummary extends Command
 {
-    const NAME = 'summary {ticker= (str)}';
-    const DESCRIPTION = 'Position summary';
+    public const NAME = 'summary {ticker= (str)}';
+    public const DESCRIPTION = 'Position summary';
 
     public function __invoke() : int
     {

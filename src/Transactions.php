@@ -102,7 +102,7 @@ class Transactions
             ];
         } else {
             $data[] = [
-                "COST",
+                'COST',
                 $shares,
                 '*',
                 $this->averageSharePrice(),
@@ -112,7 +112,7 @@ class Transactions
         }
 
         if (empty($title)) {
-            $title = "TRANSACTIONS";
+            $title = 'TRANSACTIONS';
         }
 
         return "{$title}\n" . new Table($data);

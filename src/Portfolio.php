@@ -24,6 +24,7 @@ class Portfolio implements IteratorAggregate
         $this->positions[] = $position;
         return $this;
     }
+
     public function currentValue() : float
     {
         throw new Exception('not implemented');
@@ -37,7 +38,7 @@ class Portfolio implements IteratorAggregate
         }
     }
 
-    public function getIterator(): Traversable
+    public function getIterator() : Traversable
     {
         return new ArrayIterator($this->positions);
     }

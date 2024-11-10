@@ -17,26 +17,26 @@ class DividendHistory implements IteratorAggregate
         $this->list = [];
     }
 
+    public function __toString() : string
+    {
+        $data = [];
+
+        for ($i = count($this->list); $i > 0; --$i) {
+            $data[] = $this->list[$i - 1]->data();
+        }
+
+        return (string) new Table($data);
+    }
+
     public function add(Dividend $dividend) : self
     {
         $this->list[] = $dividend;
         return $this;
     }
 
-    public function getIterator(): Traversable
+    public function getIterator() : Traversable
     {
         return new ArrayIterator($this->list);
-    }
-
-    public function __toString() : string
-    {
-        $data = [];
-
-        for ($i = count($this->list); $i > 0; --$i) {
-            $data[] = $this->list[$i -1]->data();
-        }
-
-        return (string) new Table($data);
     }
 
     public function sort() : void

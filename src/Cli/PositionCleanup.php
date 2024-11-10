@@ -8,8 +8,8 @@ use Swew\Cli\Command;
 
 class PositionCleanup extends Command
 {
-    const NAME = 'cleanup';
-    const DESCRIPTION = 'Cleanup position';
+    public const NAME = 'cleanup';
+    public const DESCRIPTION = 'Cleanup position';
 
     public function __invoke() : int
     {
@@ -19,7 +19,6 @@ class PositionCleanup extends Command
         foreach ($portfolio as $position) {
             $position->cleanup();
         }
-
 
         $portfolio->save();
 

@@ -14,8 +14,8 @@ use Swew\Cli\Command;
 
 class PositionImport extends Command
 {
-    const NAME = 'import {ticker (str)} {price (float)}';
-    const DESCRIPTION = 'Import position';
+    public const NAME = 'import {ticker (str)} {price (float)}';
+    public const DESCRIPTION = 'Import position';
 
     public function __invoke() : int
     {
@@ -41,7 +41,7 @@ class PositionImport extends Command
         $transactions = new Transactions();
 
         foreach ($list as $item) {
-            $params = explode(" ", str_replace("\t", " ", $item));
+            $params = explode(' ', str_replace("\t", ' ', $item));
             $date = DateTime::createFromFormat('d.m.Y', $params[0]);
             //file_put_contents(__DIR__ .'/../../test.txt', $params[1]);
 
@@ -71,7 +71,7 @@ class PositionImport extends Command
             $history = new DividendHistory();
 
             foreach ($list as $item) {
-                $params = explode(" ", str_replace("\t", " ", $item));
+                $params = explode(' ', str_replace("\t", ' ', $item));
                 $date = DateTime::createFromFormat('d.m.Y', $params[0]);
                 $units = (int) $params[1];
                 $price = (float) $params[2];

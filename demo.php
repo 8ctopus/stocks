@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Oct8pus\Stocks\Cli\Commands;
 use NunoMaduro\Collision\Provider;
+use Oct8pus\Stocks\Cli\Commands;
 
 require_once __DIR__ . '/vendor/autoload.php';
 

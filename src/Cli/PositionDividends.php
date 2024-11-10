@@ -10,8 +10,8 @@ use Swew\Cli\Command;
 
 class PositionDividends extends Command
 {
-    const NAME = 'dividends {--summary=false (bool)} {--year=-1 (int)} {--ticker= (str)}';
-    const DESCRIPTION = 'Position dividends';
+    public const NAME = 'dividends {--summary=false (bool)} {--year=-1 (int)} {--ticker= (str)}';
+    public const DESCRIPTION = 'Position dividends';
 
     public function __invoke() : int
     {
@@ -53,7 +53,7 @@ class PositionDividends extends Command
             $data[] = ['-'];
         }
 
-        $data[] = ["TOTAL DIVIDENDS" . (!$year ? '' : " {$year}"), (int) $totalDividends];
+        $data[] = ['TOTAL DIVIDENDS' . (!$year ? '' : " {$year}"), (int) $totalDividends];
         $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost, sprintf('(%+.1f%%)', 100 * $totalDividends / $totalAcquistionCost)];
         $data[] = ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $totalDividends / $currentValue)];
 

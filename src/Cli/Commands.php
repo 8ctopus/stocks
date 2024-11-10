@@ -21,13 +21,13 @@ class Commands extends SwewCommander
 
     protected readonly Portfolio $portfolio;
 
-    protected function init(): void
-    {
-        $this->portfolio = Portfolio::load();
-    }
-
     public function portfolio() : Portfolio
     {
         return $this->portfolio;
+    }
+
+    protected function init() : void
+    {
+        $this->portfolio = Portfolio::load();
     }
 }

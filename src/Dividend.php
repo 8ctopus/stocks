@@ -17,6 +17,12 @@ class Dividend
         $this->dividend = $dividend;
     }
 
+    public function __toString() : string
+    {
+        $dividend = sprintf('%.2f', $this->dividend);
+        return $this->date->format('d.m.Y') . " {$dividend}\n";
+    }
+
     public function date() : DateTime
     {
         return $this->date;
@@ -33,11 +39,5 @@ class Dividend
             'date' => $this->date->format('d.m.Y'),
             'dividend' => $this->dividend,
         ];
-    }
-
-    public function __toString() : string
-    {
-        $dividend = sprintf('%.2f', $this->dividend);
-        return $this->date->format('d.m.Y') . " {$dividend}\n";
     }
 }
