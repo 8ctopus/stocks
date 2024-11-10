@@ -41,7 +41,7 @@ class DividendHistory implements IteratorAggregate
 
     public function sort() : void
     {
-        usort($this->list, function ($dividend1, $dividend2) : int {
+        usort($this->list, static function ($dividend1, $dividend2) : int {
             return $dividend1->date() > $dividend2->date() ? +1 : -1;
         });
     }
