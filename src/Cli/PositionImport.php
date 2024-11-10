@@ -27,7 +27,7 @@ class PositionImport extends Command
         $import = '';
 
         while (1) {
-            $input = $this->output->ask('Enter transactions');
+            $input = $this->output->ask('Enter transactions: DD.MM.YYYY units price');
 
             if (empty($input)) {
                 break;
@@ -43,7 +43,7 @@ class PositionImport extends Command
         foreach ($list as $item) {
             $params = explode(" ", str_replace("\t", " ", $item));
             $date = DateTime::createFromFormat('d.m.Y', $params[0]);
-            file_put_contents(__DIR__ .'/../../test.txt', $params[1]);
+            //file_put_contents(__DIR__ .'/../../test.txt', $params[1]);
 
             $units = (int) str_replace(chr(0), '', $params[1]);
             $price = (float) $params[2];
@@ -63,21 +63,28 @@ class PositionImport extends Command
             $import .= trim($input) . "\n";
         }
 
-        $list = explode("\n", trim($import));
+        $import = trim($import);
 
-        $history = new DividendHistory();
+        if ($import !== '') {
+            $list = explode("\n", $import);
 
-        foreach ($list as $item) {
-            $params = explode(" ", str_replace("\t", " ", $item));
-            $date = DateTime::createFromFormat('d.m.Y', $params[0]);
-            $units = (int) $params[1];
-            $price = (float) $params[2];
+            $history = new DividendHistory();
 
-            $history->add(new Dividend($date, $price));
+            foreach ($list as $item) {
+                $params = explode(" ", str_replace("\t", " ", $item));
+                $date = DateTime::createFromFormat('d.m.Y', $params[0]);
+                $units = (int) $params[1];
+                $price = (float) $params[2];
+
+                $history->add(new Dividend($date, $price));
+            }
         }
 
         $position = new Position($ticker, $this->arg('price')->getValue(), $transactions);
-        $position->setDividendHistory($history);
+
+        if (isset($history)) {
+            $position->setDividendHistory($history);
+        }
 
         $portfolio->add($position);
         $portfolio->save();
