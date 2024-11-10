@@ -14,6 +14,7 @@ class PositionCleanup extends Command
     public function __invoke() : int
     {
         $commander = $this->getCommander();
+
         $portfolio = $commander->portfolio();
 
         foreach ($portfolio as $position) {
