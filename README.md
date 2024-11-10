@@ -9,7 +9,7 @@ $ php demo.php
 
 Available commands:
  summary: Position summary
- list: List position
+ list: List positions
  dividends: Position dividends
  transactions: Position transactions
  price: Update position price

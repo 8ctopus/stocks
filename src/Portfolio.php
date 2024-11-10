@@ -25,6 +25,15 @@ class Portfolio implements IteratorAggregate
         return $this;
     }
 
+    public function delete(Position $position) : self
+    {
+        if (($position = array_search($position, $this->positions, true)) !== false) {
+            unset($this->positions[$position]);
+        }
+
+        return $this;
+    }
+
     public function currentValue() : float
     {
         throw new Exception('not implemented');

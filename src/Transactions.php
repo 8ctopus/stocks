@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks;
 
+use Countable;
 use DateTime;
 
-class Transactions
+class Transactions implements Countable
 {
     private array $list;
 
@@ -123,5 +124,10 @@ class Transactions
         usort($this->list, static function ($transaction1, $transactions2) : int {
             return $transaction1->date() > $transactions2->date() ? +1 : -1;
         });
+    }
+
+    public function count() : int
+    {
+        return count($this->list);
     }
 }
