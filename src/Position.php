@@ -106,7 +106,7 @@ class Position
         $profit = $currentValue - $acquisitionCost;
 
         $data[] = [
-            'SHARE PRICE PROFIT',
+            'CAPITAL GAIN',
             (int) $profit,
             sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost),
         ];
@@ -114,13 +114,13 @@ class Position
         $dividends = $this->dividends();
 
         $data[] = [
-            'DIVIDENDS',
+            'DIVIDEND INCOME',
             (int) $dividends,
             sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost),
         ];
 
         $data[] = [
-            'TOTAL PROFIT',
+            'TOTAL RETURN',
             (int) ($profit + $dividends),
             sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost),
         ];
@@ -168,7 +168,7 @@ class Position
             sprintf('(%+.1f%%)', 100 * $total / $this->acquisitionCost()),
         ];
 
-        return (string) new Table($data, "{$this->ticker} DIVIDENDS");
+        return (string) new Table($data, "{$this->ticker} DIVIDEND INCOME");
     }
 
     public function reportTransactions() : string

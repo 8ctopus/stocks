@@ -85,7 +85,7 @@ class Portfolio implements IteratorAggregate
         $profit = $currentValue - $acquisitionCost;
 
         $data[] = [
-            'SHARE PRICE PROFIT',
+            'CAPITAL GAIN',
             (int) $profit,
             sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost),
         ];
@@ -93,13 +93,13 @@ class Portfolio implements IteratorAggregate
         $dividends = $this->dividends();
 
         $data[] = [
-            'DIVIDENDS',
+            'DIVIDEND INCOME',
             (int) $dividends,
             sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost),
         ];
 
         $data[] = [
-            'TOTAL PROFIT',
+            'TOTAL RETURN',
             (int) ($profit + $dividends),
             sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost),
         ];

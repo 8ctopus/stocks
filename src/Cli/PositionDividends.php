@@ -53,7 +53,7 @@ class PositionDividends extends Command
             $data[] = ['-'];
         }
 
-        $data[] = ['TOTAL DIVIDENDS' . (!$year ? '' : " {$year}"), (int) $totalDividends];
+        $data[] = ['TOTAL DIVIDEND INCOME' . (!$year ? '' : " {$year}"), (int) $totalDividends];
         $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost, sprintf('(%+.1f%%)', 100 * $totalDividends / $totalAcquistionCost)];
         $data[] = ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $totalDividends / $currentValue)];
 
