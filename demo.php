@@ -23,10 +23,10 @@ do {
     (new Commands($input, new Output(), false))
         ->run();
 
-    echo '> ';
+    echo "\n> ";
     $input = trim(fgets($stdin));
 
-    if ($input === '') {
+    if (in_array($input, ['', 'exit', 'quit'])) {
         break;
     }
 
