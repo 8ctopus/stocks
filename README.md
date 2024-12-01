@@ -22,5 +22,3 @@ Available commands:
 - add price history
 - add transaction note
 - add fees
-- stay inside loop
-- add colors
