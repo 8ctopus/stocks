@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
-use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
 class PositionSummary extends Command

@@ -26,7 +26,7 @@ do {
     echo "\n> ";
     $input = trim(fgets($stdin));
 
-    if (in_array($input, ['', 'exit', 'quit'])) {
+    if (in_array($input, ['', 'exit', 'quit', 'q'])) {
         break;
     }
 
