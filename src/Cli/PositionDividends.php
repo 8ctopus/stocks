@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Oct8pus\Stocks\Cli;
 
 use DateTime;
+use Oct8pus\Stocks\Helper;
 use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
@@ -42,7 +43,7 @@ class PositionDividends extends Command
                     $position->ticker(),
                     (int) $position->dividends($year),
                     //(int) $acquistionCost,
-                    sprintf('(%+.1f%%)', 100 * $dividends / $acquistionCost),
+                    Helper::sprintf('(%+.1f%%)', 100 * $dividends / $acquistionCost),
                 ];
             } else {
                 $this->output->writeLn($position->reportDividends($year));
@@ -54,8 +55,8 @@ class PositionDividends extends Command
         }
 
         $data[] = ['TOTAL DIVIDEND INCOME' . (!$year ? '' : " {$year}"), (int) $totalDividends];
-        $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost, sprintf('(%+.1f%%)', 100 * $totalDividends / $totalAcquistionCost)];
-        $data[] = ['CURRENT VALUE', (int) $currentValue, sprintf('(%+.1f%%)', 100 * $totalDividends / $currentValue)];
+        $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost, Helper::sprintf('(%+.1f%%)', 100 * $totalDividends / $totalAcquistionCost)];
+        $data[] = ['CURRENT VALUE', (int) $currentValue, Helper::sprintf('(%+.1f%%)', 100 * $totalDividends / $currentValue)];
 
         $this->output->writeLn((string) new Table($data));
 

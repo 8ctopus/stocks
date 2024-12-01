@@ -19,7 +19,7 @@ class Dividend
 
     public function __toString() : string
     {
-        $dividend = sprintf('%.2f', $this->dividend);
+        $dividend = Helper::sprintf('%.2f', $this->dividend);
         return $this->date->format('d.m.Y') . " {$dividend}\n";
     }
 
