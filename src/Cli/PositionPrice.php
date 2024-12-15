@@ -16,17 +16,18 @@ class PositionPrice extends Command
         $commander = $this->getCommander();
         $portfolio = $commander->portfolio();
 
-        $ticker = $this->arg('ticker')->getValue();
+        $filter = $this->arg('ticker')->getValue();
 
         foreach ($portfolio as $position) {
-            if ($ticker && $ticker !== $position->ticker()) {
+            if ($filter && $filter !== $position->ticker()) {
                 continue;
             }
 
-            $currentTicker = $position->ticker();
+            $ticker = $position->ticker();
+            $price = $position->price();
 
-            $price = (float) $this->output->ask("update price for {$currentTicker}: ");
-            $position->setPrice($price);
+            $price = $this->output->ask("update price for {$ticker} {$price}: ");
+            $position->setPrice((float) $price);
         }
 
         $portfolio->save();

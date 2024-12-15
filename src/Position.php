@@ -10,7 +10,7 @@ use Exception;
 class Position
 {
     private readonly string $ticker;
-    private ?float $price;
+    private float $price;
     private readonly Transactions $transactions;
     private readonly ?DividendHistory $history;
 
@@ -35,6 +35,11 @@ class Position
     public function shares() : int
     {
         return $this->transactions->shares();
+    }
+
+    public function price() : float
+    {
+        return $this->price;
     }
 
     public function setPrice(float $price) : void
