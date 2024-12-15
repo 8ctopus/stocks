@@ -86,8 +86,9 @@ class PositionImport extends Command
             $position->setDividendHistory($history);
         }
 
-        $portfolio->add($position);
-        $portfolio->save();
+        $portfolio
+            ->add($position)
+            ->save();
 
         return self::SUCCESS;
     }
