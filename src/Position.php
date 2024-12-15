@@ -121,7 +121,7 @@ class Position
         $data[] = [
             'CAPITAL GAIN',
             (int) $profit,
-            Helper::sprintf('(%+.1f%%)', 100 * $profit / $acquisitionCost),
+            Helper::sprintf('%+.1f%%', 100 * $profit / $acquisitionCost),
         ];
 
         $dividends = $this->dividends();
@@ -129,13 +129,13 @@ class Position
         $data[] = [
             'DIVIDEND INCOME',
             (int) $dividends,
-            Helper::sprintf('(%+.1f%%)', 100 * $dividends / $acquisitionCost),
+            Helper::sprintf('%+.1f%%', 100 * $dividends / $acquisitionCost),
         ];
 
         $data[] = [
             'TOTAL RETURN',
             (int) ($profit + $dividends),
-            Helper::sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost),
+            Helper::sprintf('%+.1f%%', 100 * ($profit + $dividends) / $acquisitionCost),
         ];
 
         if ($portfolioValue) {
@@ -191,7 +191,7 @@ class Position
             '',
             '',
             (int) $total,
-            Helper::sprintf('(%+.1f%%)', 100 * $total / $this->acquisitionCost()),
+            Helper::sprintf('%+.1f%%', 100 * $total / $this->acquisitionCost()),
         ];
 
         return (string) new Table($data, "{$this->ticker} DIVIDEND INCOME");
