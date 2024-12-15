@@ -19,7 +19,7 @@ if ($stdin === false) {
 
 $input = $argv;
 
-do {
+while (true) {
     (new Commands($input, new Output(), false))
         ->run();
 
@@ -31,7 +31,7 @@ do {
     }
 
     $input = explode(' ', "dummy {$input}");
-} while (true);
+}
 
 fclose($stdin);
 exit(0);

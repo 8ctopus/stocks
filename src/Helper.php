@@ -16,8 +16,12 @@ class Helper
 
         if ($value > 0) {
             return self::$green . $str . self::$reset;
-        } elseif ($value < 0) {
+        }
+
+        if ($value < 0) {
             return self::$red . $str . self::$reset;
         }
+
+        return $str;
     }
 }
