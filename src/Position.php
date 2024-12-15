@@ -11,6 +11,7 @@ class Position
 {
     private readonly string $ticker;
     private float $price;
+    private readonly float $priceLastYear;
     private readonly Transactions $transactions;
     private readonly ?DividendHistory $history;
 
@@ -144,6 +145,12 @@ class Position
             ];
         }
 
+        $data[] = [
+            'SHARE YTD',
+            '',
+            Helper::sprintf('%+.1f%%', 100 * ($this->price - $this->priceLastYear()) / $this->priceLastYear()),
+        ];
+
         return (string) new Table($data);
     }
 
@@ -230,5 +237,24 @@ class Position
     {
         $this->transactions->sort();
         $this->history->sort();
+    }
+
+    // FIX ME
+    public function priceLastYear() : float
+    {
+        if (!isset($this->priceLastYear)) {
+            $stdin = fopen('php://stdin', 'r');
+
+            if ($stdin === false) {
+                throw new Exception('fopen');
+            }
+
+            echo "{$this->ticker} last year closing> ";
+            $this->priceLastYear = (float) trim(fgets($stdin));
+
+            fclose($stdin);
+        }
+
+        return $this->priceLastYear;
     }
 }

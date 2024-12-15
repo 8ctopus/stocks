@@ -33,6 +33,8 @@ class PositionSummary extends Command
             $this->output->writeLn($portfolio->summary());
         }
 
+        $portfolio->save();
+
         return self::SUCCESS;
     }
 }
