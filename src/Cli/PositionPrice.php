@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
+use Oct8pus\Stocks\Helper;
 use Swew\Cli\Command;
 
 class PositionPrice extends Command
@@ -24,10 +25,12 @@ class PositionPrice extends Command
             }
 
             $ticker = $position->ticker();
-            $price = $position->price();
+            $previous = $position->price();
 
-            $price = $this->output->ask("update price for {$ticker} {$price}: ");
-            $position->setPrice((float) $price);
+            $price = (float) $this->output->ask("update price for {$ticker} {$previous}: ");
+            $position->setPrice($price);
+
+            $this->output->info(Helper::sprintf('price change %+.1f%%', 100 *($price - $previous) / $previous));
         }
 
         $portfolio->save();
