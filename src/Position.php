@@ -14,6 +14,13 @@ class Position
     private readonly Transactions $transactions;
     private readonly ?DividendHistory $history;
 
+    /**
+     * Constructor
+     *
+     * @param string       $ticker
+     * @param float        $price - current stock price
+     * @param Transactions $transactions
+     */
     public function __construct(string $ticker, float $price, Transactions $transactions)
     {
         $this->ticker = $ticker;
