@@ -83,7 +83,7 @@ class Position
         return $this->transactions->sharesOn($date);
     }
 
-    public function summary() : string
+    public function summary(?float $portfolioValue = null) : string
     {
         if ($this->price === null) {
             throw new Exception('stock price not set');
@@ -129,6 +129,13 @@ class Position
             (int) ($profit + $dividends),
             Helper::sprintf('(%+.1f%%)', 100 * ($profit + $dividends) / $acquisitionCost),
         ];
+
+        if ($portfolioValue) {
+            $data[] = [
+                'PART OF PORTFOLIO',
+                sprintf('%.1f%%', 100 * $currentValue / $portfolioValue),
+            ];
+        }
 
         return (string) new Table($data);
     }

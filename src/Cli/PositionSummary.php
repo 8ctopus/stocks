@@ -19,12 +19,14 @@ class PositionSummary extends Command
 
         $ticker = $this->arg('ticker')->getValue();
 
+        $currentValue = $portfolio->currentValue();
+
         foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
-            $this->output->writeLn($position->summary());
+            $this->output->writeLn($position->summary($currentValue));
         }
 
         if (!$ticker) {
