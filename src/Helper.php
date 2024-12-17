@@ -9,6 +9,7 @@ class Helper
     private static string $reset = "\033[0m";
     private static string $green = "\033[0;32m";
     private static string $red = "\033[0;31m";
+    private static string $white = "\033[0;37m";
 
     public static function sprintf(string $format, float $value) : string
     {
@@ -22,6 +23,6 @@ class Helper
             return self::$red . $str . self::$reset;
         }
 
-        return $str;
+        return self::$white . $str . self::$reset;
     }
 }
