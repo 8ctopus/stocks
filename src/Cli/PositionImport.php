@@ -63,12 +63,12 @@ class PositionImport extends Command
             $import .= trim($input) . "\n";
         }
 
+        $history = new DividendHistory();
+
         $import = trim($import);
 
         if ($import !== '') {
             $list = explode("\n", $import);
-
-            $history = new DividendHistory();
 
             foreach ($list as $item) {
                 $params = explode(' ', str_replace("\t", ' ', $item));
@@ -82,9 +82,7 @@ class PositionImport extends Command
 
         $position = new Position($ticker, $this->arg('price')->getValue(), $transactions);
 
-        if (isset($history)) {
-            $position->setDividendHistory($history);
-        }
+        $position->setDividendHistory($history);
 
         $portfolio
             ->add($position)
