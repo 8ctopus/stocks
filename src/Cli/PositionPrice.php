@@ -27,10 +27,13 @@ class PositionPrice extends Command
             $ticker = $position->ticker();
             $previous = $position->price();
 
-            $price = (float) $this->output->ask("update price for {$ticker} {$previous}: ");
-            $position->setPrice($price);
+            $price = $this->output->ask("update price for {$ticker} {$previous}: ");
 
-            $this->output->info(Helper::sprintf('price change %+.1f%%', 100 * ($price - $previous) / $previous));
+            if (!empty($price)) {
+                $price = (float) $price;
+                $position->setPrice($price);
+                $this->output->info(Helper::sprintf('price change %+.1f%%', 100 * ($price - $previous) / $previous));
+            }
         }
 
         $portfolio->save();
