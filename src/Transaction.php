@@ -39,6 +39,11 @@ class Transaction
         return $this->shares;
     }
 
+    public function price() : float
+    {
+        return $this->price;
+    }
+
     public function value() : float
     {
         return $this->price * $this->shares;

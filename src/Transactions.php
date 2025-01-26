@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks;
 
+use ArrayIterator;
 use Countable;
 use DateTime;
+use IteratorAggregate;
+use Traversable;
 
-class Transactions implements Countable
+class Transactions implements Countable, IteratorAggregate
 {
     private array $list;
 
@@ -129,5 +132,10 @@ class Transactions implements Countable
     public function count() : int
     {
         return count($this->list);
+    }
+
+    public function getIterator() : Traversable
+    {
+        return new ArrayIterator($this->list);
     }
 }

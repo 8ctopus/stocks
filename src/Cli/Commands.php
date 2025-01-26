@@ -18,6 +18,7 @@ class Commands extends SwewCommander
         PositionCleanup::class,
         PositionImport::class,
         PositionAddTransaction::class,
+        ExportTransactions::class,
     ];
 
     protected readonly Portfolio $portfolio;
