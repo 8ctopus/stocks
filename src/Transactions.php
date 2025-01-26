@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks;
 
+use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use DateTime;
+use Exception;
 use IteratorAggregate;
 use Traversable;
 
-class Transactions implements Countable, IteratorAggregate
+class Transactions implements Countable, IteratorAggregate, ArrayAccess
 {
     private array $list;
 
@@ -137,5 +139,25 @@ class Transactions implements Countable, IteratorAggregate
     public function getIterator() : Traversable
     {
         return new ArrayIterator($this->list);
+    }
+
+    public function offsetExists(mixed $offset) : bool
+    {
+        return isset($this->list[$offset]);
+    }
+
+    public function offsetGet(mixed $offset) : mixed
+    {
+        return $this->list[$offset];
+    }
+
+    public function offsetSet(mixed $offset, mixed $value) : void
+    {
+        throw new Exception('not implemented');
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        throw new Exception('not implemented');
     }
 }

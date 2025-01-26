@@ -8,7 +8,7 @@ use Swew\Cli\Command;
 
 class ExportTransactions extends Command
 {
-    public const NAME = 'export {ticker= (str)}';
+    public const NAME = 'export {--summary=false (bool)} {ticker= (str)}';
     public const DESCRIPTION = 'Export transactions';
 
     public function __invoke() : int
@@ -26,12 +26,20 @@ class ExportTransactions extends Command
 
             $currentTicker = $position->ticker();
 
-            foreach ($position->transactions() as $transaction) {
-                $shares = $transaction->shares();
-                $price = $transaction->price();
-                $date = $transaction->date()->format('Y/m/d');
+            if ($this->arg('summary')->getValue()) {
+                $shares = $position->shares();
+                $price = $position->acquisitionCost() / $shares;
+                $date = $position->transactions()[0]->date()->format('Y/m/d');
 
                 $this->output->writeLn("{$currentTicker};{$shares};{$price};{$date}");
+            } else {
+                foreach ($position->transactions() as $transaction) {
+                    $shares = $transaction->shares();
+                    $price = $transaction->price();
+                    $date = $transaction->date()->format('Y/m/d');
+
+                    $this->output->writeLn("{$currentTicker};{$shares};{$price};{$date}");
+                }
             }
         }
 
