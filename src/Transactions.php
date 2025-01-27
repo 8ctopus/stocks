@@ -156,7 +156,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         throw new Exception('not implemented');
     }
 
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset(mixed $offset) : void
     {
         throw new Exception('not implemented');
     }
