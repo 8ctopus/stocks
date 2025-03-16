@@ -5,7 +5,7 @@ php-stocks is a command line tool to measure the performance of a portfolio comp
 ## how to use
 
 ```txt
-$ php stocks.php
+$ php index.php
 
 Available commands:
  summary: Position summary
