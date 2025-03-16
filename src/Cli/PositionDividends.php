@@ -34,6 +34,7 @@ class PositionDividends extends Command
 
             $dividends = $position->dividends($year);
             $totalDividends += $dividends;
+            // FIX ME
             $acquistionCost = $position->acquisitionCostOn(new DateTime('2024-04-17'));
             $totalAcquistionCost += $acquistionCost;
             $currentValue += $position->currentValue();
