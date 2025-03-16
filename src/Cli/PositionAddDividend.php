@@ -11,7 +11,7 @@ use Swew\Cli\Command;
 
 class PositionAddDividend extends Command
 {
-    public const NAME = 'add dividend {ticker (str)} {date (str)} {dividend (float)}';
+    public const NAME = 'add-dividend {ticker (str)} {date (str)} {dividend (float)}';
     public const DESCRIPTION = 'Add position dividend';
 
     public function __invoke() : int

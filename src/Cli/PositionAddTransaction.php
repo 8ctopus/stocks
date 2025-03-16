@@ -10,7 +10,7 @@ use Swew\Cli\Command;
 
 class PositionAddTransaction extends Command
 {
-    public const NAME = 'add transaction {ticker (str)} {date (str)} {shares (int)} {price (float)}';
+    public const NAME = 'add-transaction {ticker (str)} {date (str)} {shares (int)} {price (float)}';
     public const DESCRIPTION = 'Add position transaction';
 
     public function __invoke() : int
