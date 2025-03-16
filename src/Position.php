@@ -50,6 +50,11 @@ class Position
         return $this->price;
     }
 
+    public function dividendHistory() : ?DividendHistory
+    {
+        return $this->history;
+    }
+
     public function setPrice(float $price) : void
     {
         $this->price = $price;
