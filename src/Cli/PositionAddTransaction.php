@@ -10,7 +10,7 @@ use Swew\Cli\Command;
 
 class PositionAddTransaction extends Command
 {
-    public const NAME = 'add {ticker (str)} {date (str)} {shares (int)} {price (float)}';
+    public const NAME = 'add transaction {ticker (str)} {date (str)} {shares (int)} {price (float)}';
     public const DESCRIPTION = 'Add position transaction';
 
     public function __invoke() : int
@@ -20,8 +20,8 @@ class PositionAddTransaction extends Command
 
         $ticker = $this->arg('ticker')->getValue();
         $date = DateTime::createFromFormat('Y-m-d', $this->arg('date')->getValue());
-        $price = $this->arg('price')->getValue();
         $shares = $this->arg('shares')->getValue();
+        $price = $this->arg('price')->getValue();
 
         $transaction = new Transaction($date, $shares, $price);
 
