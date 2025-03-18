@@ -37,7 +37,7 @@ class PositionAddDividend extends Command
             }
         }
 
-        //$portfolio->save();
+        $portfolio->save();
 
         return self::SUCCESS;
     }
