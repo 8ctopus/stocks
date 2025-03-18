@@ -7,7 +7,7 @@ namespace Oct8pus\Stocks;
 use DateTime;
 use Exception;
 
-class Position
+class Position implements PositionInterface
 {
     private readonly string $ticker;
     private float $price;

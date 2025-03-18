@@ -18,13 +18,13 @@ class Portfolio implements IteratorAggregate
         $this->positions = [];
     }
 
-    public function add(Position $position) : self
+    public function add(PositionInterface $position) : self
     {
         $this->positions[] = $position;
         return $this;
     }
 
-    public function delete(Position $position) : self
+    public function delete(PositionInterface $position) : self
     {
         if (($position = array_search($position, $this->positions, true)) !== false) {
             unset($this->positions[$position]);
