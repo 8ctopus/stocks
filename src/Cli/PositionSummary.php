@@ -32,11 +32,11 @@ class PositionSummary extends Command
             $data = array_merge($data, $position->summary($currentValue), [['']]);
         }
 
-        $this->output->writeLn((string) new Table($data));
-
         if (!$ticker) {
-            $this->output->writeLn($portfolio->summary());
+            $data = array_merge($data, $portfolio->summary());
         }
+
+        $this->output->writeLn((string) new Table($data));
 
         $portfolio->save();
 

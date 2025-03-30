@@ -66,7 +66,7 @@ class Portfolio implements IteratorAggregate
         return $dividends;
     }
 
-    public function summary() : string
+    public function summary() : array
     {
         $acquisitionCost = $this->acquisitionCost();
 
@@ -104,7 +104,7 @@ class Portfolio implements IteratorAggregate
             Helper::sprintf('%+.1f%%', 100 * ($profit + $dividends) / $acquisitionCost),
         ];
 
-        return (string) new Table($data);
+        return $data;
     }
 
     public function getIterator() : Traversable
