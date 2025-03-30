@@ -15,4 +15,8 @@ interface PositionInterface
     public function currentValue() : float;
 
     public function summary() : array;
+
+    public function dividends() : float;
+
+    public function reportDividends(?int $year = null) : string;
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks;
 
+use DateTime;
+
 class Cash implements PositionInterface
 {
     private readonly string $ticker;
@@ -39,9 +41,19 @@ class Cash implements PositionInterface
         return $this->price;
     }
 
+    public function acquisitionCostOn(DateTime $date) : float
+    {
+        return $this->price;
+    }
+
     public function dividends() : float
     {
         return 0;
+    }
+
+    public function reportDividends(?int $year = null) : string
+    {
+        return '';
     }
 
     public function summary(?float $portfolioValue = null) : array
