@@ -4,13 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
-use DateTime;
 use Oct8pus\Stocks\Cash;
-use Oct8pus\Stocks\Dividend;
-use Oct8pus\Stocks\DividendHistory;
-use Oct8pus\Stocks\Position;
-use Oct8pus\Stocks\Transaction;
-use Oct8pus\Stocks\Transactions;
 use Swew\Cli\Command;
 
 class CashImport extends Command
@@ -26,7 +20,7 @@ class CashImport extends Command
         $price = $this->arg('price')->getValue();
 
         foreach ($portfolio as $position) {
-            if ($position->ticker() === 'cash') {
+            if ($position->ticker() === 'CASH') {
                 break;
             }
 

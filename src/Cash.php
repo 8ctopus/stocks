@@ -11,7 +11,7 @@ class Cash implements PositionInterface
 
     public function __construct()
     {
-        $this->ticker = 'cash';
+        $this->ticker = 'CASH';
     }
 
     public function ticker() : string
@@ -48,7 +48,7 @@ class Cash implements PositionInterface
     {
         $data[] = [
             $this->ticker,
-            $this->price,
+            (int) $this->price,
         ];
 
         if ($portfolioValue) {
