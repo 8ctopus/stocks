@@ -96,7 +96,7 @@ class Position implements PositionInterface
         return $this->transactions->sharesOn($date);
     }
 
-    public function summary(?float $portfolioValue = null) : string
+    public function summary(?float $portfolioValue = null) : array
     {
         if ($this->price === null) {
             throw new Exception('stock price not set');
@@ -156,7 +156,7 @@ class Position implements PositionInterface
             ];
         }
 
-        return (string) new Table($data);
+        return $data;
     }
 
     public function reportDividends(?int $year = null) : string

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
+use Oct8pus\Stocks\Table;
 use Swew\Cli\Command;
 
 class PositionSummary extends Command
@@ -21,13 +22,17 @@ class PositionSummary extends Command
 
         $currentValue = $portfolio->currentValue();
 
+        $data = [];
+
         foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
 
-            $this->output->writeLn($position->summary($currentValue));
+            $data = array_merge($data, $position->summary($currentValue), [['']]);
         }
+
+        $this->output->writeLn((string) new Table($data));
 
         if (!$ticker) {
             $this->output->writeLn($portfolio->summary());

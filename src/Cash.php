@@ -44,7 +44,7 @@ class Cash implements PositionInterface
         return 0;
     }
 
-    public function summary(?float $portfolioValue = null) : string
+    public function summary(?float $portfolioValue = null) : array
     {
         $data[] = [
             $this->ticker,
@@ -58,6 +58,6 @@ class Cash implements PositionInterface
             ];
         }
 
-        return (string) new Table($data);
+        return $data;
     }
 }

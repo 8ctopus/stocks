@@ -14,5 +14,5 @@ interface PositionInterface
 
     public function currentValue() : float;
 
-    public function summary() : string;
+    public function summary() : array;
 }
