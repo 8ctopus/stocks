@@ -15,6 +15,10 @@ Available commands:
  price: Update position price
  cleanup: Cleanup position
  import: Import position
+ add-transaction: Add position transaction
+ add-dividend: Add position dividend
+ export: Export transactions
+ import-cash: Import cash
 ```
 
 ## todo
