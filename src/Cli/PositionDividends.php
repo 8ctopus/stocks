@@ -34,6 +34,7 @@ class PositionDividends extends Command
 
             $dividends = $position->dividends($year);
             $totalDividends += $dividends;
+
             // FIX ME
             $acquistionCost = $position->acquisitionCostOn(new DateTime('now'));
             $totalAcquistionCost += $acquistionCost;
@@ -44,7 +45,7 @@ class PositionDividends extends Command
                     $position->ticker(),
                     (int) $position->dividends($year),
                     //(int) $acquistionCost,
-                    Helper::sprintf('%+.1f%%', 100 * $dividends / $acquistionCost),
+                    //Helper::sprintf('%+.1f%%', 100 * $dividends / $acquistionCost),
                 ];
             } else {
                 $this->output->writeLn($position->reportDividends($year));
@@ -55,8 +56,8 @@ class PositionDividends extends Command
             $data[] = ['-'];
         }
 
-        $data[] = ['TOTAL DIVIDEND INCOME' . (!$year ? '' : " {$year}"), (int) $totalDividends];
-        $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost, Helper::sprintf('%+.1f%%', 100 * $totalDividends / $totalAcquistionCost)];
+        $data[] = ['TOTAL DIVIDEND INCOME' . (!$year ? '' : " {$year}"), (int) $totalDividends, Helper::sprintf('%+.1f%%', 100 * $totalDividends / $totalAcquistionCost)];
+        $data[] = ['ACQUISTION COST', (int) $totalAcquistionCost];
         $data[] = ['CURRENT VALUE', (int) $currentValue, Helper::sprintf('%+.1f%%', 100 * $totalDividends / $currentValue)];
 
         $this->output->writeLn((string) new Table($data));
