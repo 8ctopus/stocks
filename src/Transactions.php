@@ -88,8 +88,8 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
 
     public function report(string $title = '') : string
     {
-        for ($i = count($this->list); $i > 0; --$i) {
-            $transaction = $this->list[$i - 1];
+        for ($i = 0; $i < count($this->list); ++$i) {
+            $transaction = $this->list[$i];
             $data[] = $transaction->data();
         }
 
