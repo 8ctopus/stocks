@@ -9,7 +9,7 @@ use Swew\Cli\Command;
 
 class PositionPrice extends Command
 {
-    public const NAME = 'price {--ticker= (str)}';
+    public const NAME = 'update-price {--ticker= (str)}';
     public const DESCRIPTION = 'Update position price';
 
     public function __invoke() : int
