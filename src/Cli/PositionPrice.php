@@ -19,6 +19,8 @@ class PositionPrice extends Command
 
         $filter = $this->arg('ticker')->getValue();
 
+        $total = 0;
+
         foreach ($portfolio as $position) {
             if ($filter && $filter !== $position->ticker()) {
                 continue;
@@ -27,16 +29,28 @@ class PositionPrice extends Command
             $ticker = $position->ticker();
             $previous = $position->price();
 
-            $price = $this->output->ask("update price for {$ticker} {$previous}: ");
+            $price = $this->output->ask("\nupdate price for {$ticker} {$previous}: ");
 
             if (!empty($price)) {
                 $price = (float) $price;
+
+                $profit = $position->sharePriceProfit();
+
                 $position->setPrice($price);
-                $this->output->info(Helper::sprintf('price change %+.1f%%', 100 * ($price - $previous) / $previous));
+
+                $profit = $position->sharePriceProfit() - $profit;
+                $total += $profit;
+
+                $change = Helper::sprintf('price change %+.1f%% ', 100 * ($price - $previous) / $previous);
+
+                $this->output->info($change . number_format($profit, 0, '.', '\''));
             }
         }
 
         $portfolio->save();
+
+        $this->output->info(Helper::sprintf('change %+d', $total));
+
         return self::SUCCESS;
     }
 }
