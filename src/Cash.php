@@ -51,6 +51,11 @@ class Cash implements PositionInterface
         return 0;
     }
 
+    public function shares() : float
+    {
+        return 0;
+    }
+
     public function sharePriceProfit() : float
     {
         return 0;
