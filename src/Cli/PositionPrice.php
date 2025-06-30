@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\Stocks\Cli;
 
+use DivisionByZeroError;
 use Oct8pus\Stocks\Helper;
 use Swew\Cli\Command;
 
@@ -41,7 +42,11 @@ class PositionPrice extends Command
                 $profit = $position->sharePriceProfit() - $profit;
                 $total += $profit;
 
-                $change = Helper::sprintf('price change %+.1f%% ', 100 * ($price - $previous) / $previous);
+                try {
+                    $change = Helper::sprintf('price change %+.1f%% ', 100 * ($price - $previous) / $previous);
+                } catch (DivisionByZeroError) {
+                    $change = Helper::sprintf('price change +∞ ', 0);
+                }
 
                 $this->output->info($change . number_format($profit, 0, '.', '\''));
             }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Oct8pus\Stocks;
 
 use DateTime;
+use DivisionByZeroError;
 use Exception;
 
 class Position implements PositionInterface
@@ -129,24 +130,42 @@ class Position implements PositionInterface
 
         $profit = $currentValue - $acquisitionCost;
 
+        try {
+            $percentage = Helper::sprintf('%+.1f%%', 100 * $profit / $acquisitionCost);
+        } catch (DivisionByZeroError) {
+            $percentage = Helper::sprintf('+∞', 0);
+        }
+
         $data[] = [
             'CAPITAL GAIN',
             (int) $profit,
-            Helper::sprintf('%+.1f%%', 100 * $profit / $acquisitionCost),
+            $percentage,
         ];
 
         $dividends = $this->dividends();
 
+        try {
+            $percentage = Helper::sprintf('%+.1f%%', 100 * $dividends / $acquisitionCost);
+        } catch (DivisionByZeroError) {
+            $percentage = Helper::sprintf('+∞', 0);
+        }
+
         $data[] = [
             'DIVIDEND INCOME',
             (int) $dividends,
-            Helper::sprintf('%+.1f%%', 100 * $dividends / $acquisitionCost),
+            $percentage,
         ];
+
+        try {
+            $percentage = Helper::sprintf('%+.1f%%', 100 * ($profit + $dividends) / $acquisitionCost);
+        } catch (DivisionByZeroError) {
+            $percentage = Helper::sprintf('+∞', 0);
+        }
 
         $data[] = [
             'TOTAL RETURN',
             (int) ($profit + $dividends),
-            Helper::sprintf('%+.1f%%', 100 * ($profit + $dividends) / $acquisitionCost),
+            $percentage,
         ];
 
         if ($portfolioValue) {
