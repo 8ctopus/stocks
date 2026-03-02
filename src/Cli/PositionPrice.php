@@ -27,6 +27,10 @@ class PositionPrice extends Command
                 continue;
             }
 
+            if ($position->shares() === 0) {
+                continue;
+            }
+
             $ticker = $position->ticker();
             $previous = $position->price();
 
