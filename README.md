@@ -18,7 +18,6 @@ Available commands:
  add-transaction: Add position transaction
  add-dividend: Add position dividend
  export: Export transactions
- import-cash: Import cash
 ```
 
 ## todo
