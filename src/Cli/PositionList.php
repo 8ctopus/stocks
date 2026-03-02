@@ -23,6 +23,10 @@ class PositionList extends Command
                 continue;
             }
 
+            if ($position->shares() === 0) {
+                continue;
+            }
+
             $data[] = [
                 $position->ticker(),
                 $position->shares(),
