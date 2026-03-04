@@ -66,9 +66,28 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
 
     public function averageSharePrice() : float
     {
+        /* REM
         $shares = $this->shares();
 
         return $shares ? $this->total() / $shares : $this->total();
+        */
+
+        $shares = 0;
+        $value = 0;
+
+        foreach ($this->list as $transaction) {
+            $units = $transaction->shares();
+
+            // only purchases count
+            if ($units < 0) {
+                continue;
+            }
+
+            $shares += $units;
+            $value += $transaction->value();
+        }
+
+        return $value / $shares;
     }
 
     public function sharesOn(DateTime $date) : int
