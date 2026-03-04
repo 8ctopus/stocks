@@ -29,6 +29,10 @@ class PositionSummary extends Command
                 continue;
             }
 
+            if ($position->shares() === 0) {
+                continue;
+            }
+
             $data = array_merge($data, $position->summary($currentValue), [['']]);
         }
 
