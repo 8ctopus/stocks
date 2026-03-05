@@ -128,17 +128,17 @@ class Position implements PositionInterface
             (int) $acquisitionCost,
         ];
 
-        $profit = $currentValue - $acquisitionCost;
+        $latent = $currentValue - $acquisitionCost;
 
         try {
-            $percentage = Helper::sprintf('%+.1f%%', 100 * $profit / $acquisitionCost);
+            $percentage = Helper::sprintf('%+.1f%%', 100 * $latent / $acquisitionCost);
         } catch (DivisionByZeroError) {
             $percentage = Helper::sprintf('+∞', 0);
         }
 
         $data[] = [
             'LATENT GAIN',
-            (int) $profit,
+            (int) $latent,
             $percentage,
         ];
 
@@ -157,14 +157,14 @@ class Position implements PositionInterface
         ];
 
         try {
-            $percentage = Helper::sprintf('%+.1f%%', 100 * ($profit + $dividends) / $acquisitionCost);
+            $percentage = Helper::sprintf('%+.1f%%', 100 * ($latent + $dividends) / $acquisitionCost);
         } catch (DivisionByZeroError) {
             $percentage = Helper::sprintf('+∞', 0);
         }
 
         $data[] = [
             'TOTAL RETURN',
-            (int) ($profit + $dividends),
+            (int) ($latent + $dividends),
             $percentage,
         ];
 
