@@ -57,7 +57,7 @@ class Transaction
             '*',
             $this->price,
             '=',
-            (int) $this->value(),
+            (int) round($this->value(), 0, PHP_ROUND_HALF_UP),
         ];
     }
 }
