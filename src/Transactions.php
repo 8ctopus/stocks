@@ -120,15 +120,15 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 $this->total(),
             ];
         } else {
-            $average = $this->shareUnitCost();
+            $unitCost = $this->shareUnitCost();
 
             $data[] = [
                 'COST',
                 $shares,
                 '*',
-                $average,
+                $unitCost,
                 '=',
-                (int) ($shares * $average),
+                (int) ($shares * $unitCost),
             ];
         }
 
