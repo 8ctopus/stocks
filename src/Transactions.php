@@ -64,14 +64,8 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         return $total;
     }
 
-    public function averageSharePrice() : float
+    public function shareUnitCost() : float
     {
-        /* REM
-        $shares = $this->shares();
-
-        return $shares ? $this->total() / $shares : $this->total();
-        */
-
         $shares = 0;
         $value = 0;
 
@@ -126,7 +120,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 $this->total(),
             ];
         } else {
-            $average = $this->averageSharePrice();
+            $average = $this->shareUnitCost();
 
             $data[] = [
                 'COST',
