@@ -64,6 +64,11 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         return $total;
     }
 
+    public function acquisitionCost() : float
+    {
+        return $this->shares() * $this->shareUnitCost();
+    }
+
     public function shareUnitCost() : float
     {
         $shares = 0;

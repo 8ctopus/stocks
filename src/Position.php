@@ -68,12 +68,12 @@ class Position implements PositionInterface
 
     public function acquisitionCost() : float
     {
-        return $this->transactions->total();
+        return $this->transactions->acquisitionCost();
     }
 
     public function acquisitionCostOn(DateTime $date) : float
     {
-        return $this->transactions->totalOn($date);
+        return $this->transactions->acquisitionCostOn($date);
     }
 
     public function dividendsPaid() : string
