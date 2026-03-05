@@ -68,18 +68,18 @@ class Portfolio implements IteratorAggregate
 
     public function summary() : array
     {
-        $acquisitionCost = $this->acquisitionCost();
-
-        $data[] = [
-            'ACQUISITION COST',
-            (int) $acquisitionCost,
-        ];
-
         $currentValue = $this->currentValue();
 
         $data[] = [
             'CURRENT VALUE',
             (int) $currentValue,
+        ];
+
+        $acquisitionCost = $this->acquisitionCost();
+
+        $data[] = [
+            'ACQUISITION COST',
+            (int) $acquisitionCost,
         ];
 
         $profit = $currentValue - $acquisitionCost;

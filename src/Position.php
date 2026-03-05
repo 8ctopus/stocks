@@ -114,18 +114,18 @@ class Position implements PositionInterface
             Helper::sprintf('%+.1f%%', 100 * ($this->price - $this->priceYearOpen()) / $this->priceYearOpen()),
         ];
 
-        $acquisitionCost = $this->acquisitionCost();
-
-        $data[] = [
-            'ACQUISITION COST',
-            (int) $acquisitionCost,
-        ];
-
         $currentValue = $this->currentValue();
 
         $data[] = [
             'CURRENT VALUE',
             (int) $currentValue,
+        ];
+
+        $acquisitionCost = $this->acquisitionCost();
+
+        $data[] = [
+            'ACQUISITION COST',
+            (int) $acquisitionCost,
         ];
 
         $profit = $currentValue - $acquisitionCost;
