@@ -137,7 +137,7 @@ class Position implements PositionInterface
         }
 
         $data[] = [
-            'CAPITAL GAIN',
+            'LATENT GAIN',
             (int) $profit,
             $percentage,
         ];

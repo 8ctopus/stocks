@@ -85,7 +85,7 @@ class Portfolio implements IteratorAggregate
         $profit = $currentValue - $acquisitionCost;
 
         $data[] = [
-            'CAPITAL GAIN',
+            'LATENT GAIN',
             (int) $profit,
             Helper::sprintf('%+.1f%%', 100 * $profit / $acquisitionCost),
         ];
