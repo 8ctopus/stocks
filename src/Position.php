@@ -142,6 +142,20 @@ class Position implements PositionInterface
             $percentage,
         ];
 
+        $realized = $acquisitionCost - $this->transactions->total();
+
+        try {
+            $percentage = Helper::sprintf('%+.1f%%', 100 * $realized / $acquisitionCost);
+        } catch (DivisionByZeroError) {
+            $percentage = Helper::sprintf('+∞', 0);
+        }
+
+        $data[] = [
+            'REALIZED GAIN',
+            (int) $realized,
+            $percentage,
+        ];
+
         $dividends = $this->dividends();
 
         try {
@@ -164,7 +178,7 @@ class Position implements PositionInterface
 
         $data[] = [
             'TOTAL RETURN',
-            (int) ($latent + $dividends),
+            (int) ($latent + $realized + $dividends),
             $percentage,
         ];
 
