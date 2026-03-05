@@ -22,6 +22,8 @@ class PositionSummary extends Command
 
         $currentValue = $portfolio->currentValue();
 
+        $spacer = $ticker ? [] : [['']];
+
         $data = [];
 
         foreach ($portfolio as $position) {
@@ -33,7 +35,7 @@ class PositionSummary extends Command
                 continue;
             }
 
-            $data = array_merge($data, $position->summary($currentValue), [['']]);
+            $data = array_merge($data, $position->summary($currentValue), $spacer);
         }
 
         if (!$ticker) {
