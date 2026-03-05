@@ -128,20 +128,6 @@ class Position implements PositionInterface
             (int) $acquisitionCost,
         ];
 
-        $latent = $currentValue - $acquisitionCost;
-
-        try {
-            $percentage = Helper::sprintf('%+.1f%%', 100 * $latent / $acquisitionCost);
-        } catch (DivisionByZeroError) {
-            $percentage = Helper::sprintf('+∞', 0);
-        }
-
-        $data[] = [
-            'LATENT GAIN',
-            (int) $latent,
-            $percentage,
-        ];
-
         $realized = $acquisitionCost - $this->transactions->total();
 
         try {
@@ -153,6 +139,20 @@ class Position implements PositionInterface
         $data[] = [
             'REALIZED GAIN',
             (int) $realized,
+            $percentage,
+        ];
+
+        $latent = $currentValue - $acquisitionCost;
+
+        try {
+            $percentage = Helper::sprintf('%+.1f%%', 100 * $latent / $acquisitionCost);
+        } catch (DivisionByZeroError) {
+            $percentage = Helper::sprintf('+∞', 0);
+        }
+
+        $data[] = [
+            'LATENT GAIN',
+            (int) $latent,
             $percentage,
         ];
 
