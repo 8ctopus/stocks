@@ -76,6 +76,11 @@ class Position implements PositionInterface
         return $this->transactions->acquisitionCostOn($date);
     }
 
+    public function realizedGain() : float
+    {
+        return $this->acquisitionCost() - $this->transactions->total();
+    }
+
     public function dividendsPaid() : string
     {
         $total = 0;
@@ -128,7 +133,7 @@ class Position implements PositionInterface
             (int) $acquisitionCost,
         ];
 
-        $realized = $acquisitionCost - $this->transactions->total();
+        $realized = $this->realizedGain();
 
         try {
             $percentage = Helper::sprintf('%+.1f%%', 100 * $realized / $acquisitionCost);

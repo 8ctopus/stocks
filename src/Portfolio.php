@@ -55,6 +55,17 @@ class Portfolio implements IteratorAggregate
         return $acquisitionCost;
     }
 
+    public function realizedGain() : float
+    {
+        $realized = 0;
+
+        foreach ($this->positions as $position) {
+            $realized += $position->realizedGain();
+        }
+
+        return $realized;
+    }
+
     public function dividends() : float
     {
         $dividends = 0;
@@ -82,12 +93,20 @@ class Portfolio implements IteratorAggregate
             (int) $acquisitionCost,
         ];
 
-        $profit = $currentValue - $acquisitionCost;
+        $realized = $this->realizedGain();
+
+        $data[] = [
+            'REALIZED GAIN',
+            (int) $realized,
+            Helper::sprintf('%+.1f%%', 100 * $realized / $acquisitionCost),
+        ];
+
+        $latent = $currentValue - $acquisitionCost;
 
         $data[] = [
             'LATENT GAIN',
-            (int) $profit,
-            Helper::sprintf('%+.1f%%', 100 * $profit / $acquisitionCost),
+            (int) $latent,
+            Helper::sprintf('%+.1f%%', 100 * $latent / $acquisitionCost),
         ];
 
         $dividends = $this->dividends();
@@ -100,8 +119,8 @@ class Portfolio implements IteratorAggregate
 
         $data[] = [
             'TOTAL RETURN',
-            (int) ($profit + $dividends),
-            Helper::sprintf('%+.1f%%', 100 * ($profit + $dividends) / $acquisitionCost),
+            (int) ($latent + $dividends),
+            Helper::sprintf('%+.1f%%', 100 * ($realized + $latent + $dividends) / $acquisitionCost),
         ];
 
         return $data;
