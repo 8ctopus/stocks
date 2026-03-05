@@ -116,13 +116,14 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         ];
 
         $shares = $this->shares();
+        $total = $this->total();
 
         if ($shares === 0) {
             $data[] = [
                 'PROFIT',
                 '',
                 '',
-                $this->total(),
+                $total,
             ];
         } else {
             $unitCost = $this->shareUnitCost();
@@ -134,6 +135,15 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 $unitCost,
                 '=',
                 (int) ($shares * $unitCost),
+            ];
+
+            $data[] = [
+                'TOTAL',
+                $shares,
+                '*',
+                $total / $shares,
+                '=',
+                (int) ($total),
             ];
         }
 
