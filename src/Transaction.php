@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Oct8pus\Stocks;
 
 use DateTime;
+use Exception;
 
 class Transaction
 {
     private readonly DateTime $date;
     private readonly int $shares;
     private readonly float $price;
-    private readonly float $cost;
+
+    // FIX ME - set to readonly once all costs were imported
+    private float $cost;
 
     public function __construct(DateTime $date, int $shares, float $price, float $cost = 0)
     {
@@ -89,6 +92,23 @@ class Transaction
         $this->date = $data['date'];
         $this->shares = $data['shares'];
         $this->price = $data['price'];
+
+        if ($this->cost == 0 && $this->date >= new DateTime('2024-04-02')) {
+            $stdin = fopen('php://stdin', 'r');
+
+            if ($stdin === false) {
+                throw new Exception('fopen');
+            }
+
+            $date = $this->date->format('Y-m-d');
+
+            echo "{$date} {$this->shares} {$this->price}> ";
+            $this->cost = (float) trim(fgets($stdin));
+
+            fclose($stdin);
+        }
+
+
         $this->cost = $data['cost'];
     }
 }
