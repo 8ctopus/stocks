@@ -38,12 +38,12 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         return $units;
     }
 
-    public function total() : float
+    public function total(bool $cost) : float
     {
         $total = 0;
 
         foreach ($this->list as $transaction) {
-            $total += $transaction->value();
+            $total += $transaction->value($cost);
         }
 
         return $total;
@@ -83,7 +83,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
             }
 
             $shares += $units;
-            $value += $transaction->value();
+            $value += $transaction->value(true);
         }
 
         return $value / $shares;
@@ -108,7 +108,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
     {
         for ($i = 0; $i < count($this->list); ++$i) {
             $transaction = $this->list[$i];
-            $data[] = $transaction->data();
+            $data[] = $transaction->data(false);
         }
 
         $data[] = [
@@ -116,7 +116,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         ];
 
         $shares = $this->shares();
-        $total = $this->total();
+        $total = $this->total(true);
 
         if ($shares === 0) {
             $data[] = [
