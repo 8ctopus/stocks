@@ -20,6 +20,7 @@ class Commands extends SwewCommander
         PositionAddTransaction::class,
         PositionAddDividend::class,
         ExportTransactions::class,
+        PortfolioSave::class,
     ];
 
     protected readonly Portfolio $portfolio;
