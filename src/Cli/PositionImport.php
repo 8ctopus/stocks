@@ -49,8 +49,9 @@ class PositionImport extends Command
 
             $units = (int) str_replace(chr(0), '', $params[1]);
             $price = (float) $params[2];
+            $cost = (float) $params[3];
 
-            $transactions->add(new Transaction($date, $units, $price));
+            $transactions->add(new Transaction($date, $units, $price, $cost));
         }
 
         $import = '';
