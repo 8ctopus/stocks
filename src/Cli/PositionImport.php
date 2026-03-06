@@ -20,6 +20,8 @@ class PositionImport extends Command
     public function __invoke() : int
     {
         $commander = $this->getCommander();
+
+        /** @disregard P1013 */
         $portfolio = $commander->portfolio();
 
         $ticker = $this->arg('ticker')->getValue();
