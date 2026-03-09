@@ -120,7 +120,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
 
         if ($shares === 0) {
             $data[] = [
-                'PROFIT',
+                'REALIZED GAIN',
                 '',
                 '',
                 (int) round(-$total, 0, PHP_ROUND_HALF_UP),
