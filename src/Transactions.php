@@ -49,7 +49,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         return $total;
     }
 
-    public function totalOn(DateTime $date) : float
+    public function totalOn(DateTime $date, bool $cost) : float
     {
         $total = 0;
 
@@ -58,7 +58,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 continue;
             }
 
-            $total += $transaction->value();
+            $total += $transaction->value($cost);
         }
 
         return $total;
