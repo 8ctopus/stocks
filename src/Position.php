@@ -181,18 +181,18 @@ class Position implements PositionInterface
             $percentage,
         ];
 
+        $data[] = [
+            'SHARE / YTD',
+            $this->price(),
+            Helper::sprintf('%+.1f%%', 100 * ($this->price - $this->priceYearOpen()) / $this->priceYearOpen()),
+        ];
+
         if ($portfolioValue) {
             $data[] = [
                 'PART OF PORTFOLIO',
                 sprintf('%.1f%%', 100 * $currentValue / $portfolioValue),
             ];
         }
-
-        $data[] = [
-            'SHARE YTD',
-            $this->price(),
-            Helper::sprintf('%+.1f%%', 100 * ($this->price - $this->priceYearOpen()) / $this->priceYearOpen()),
-        ];
 
         return $data;
     }
