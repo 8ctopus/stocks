@@ -123,7 +123,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 'PROFIT',
                 '',
                 '',
-                $total,
+                round(-$total, 0, PHP_ROUND_HALF_UP),
             ];
         } else {
             $unitCost = $this->shareUnitCost();
@@ -143,7 +143,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 '*',
                 $total / $shares,
                 '=',
-                (int) ($total),
+                round($total, 0, PHP_ROUND_HALF_UP),
             ];
         }
 
