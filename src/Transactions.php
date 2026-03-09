@@ -104,11 +104,11 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         return $units;
     }
 
-    public function report(string $title = '') : string
+    public function report(bool $cost, string $title = '') : string
     {
         for ($i = 0; $i < count($this->list); ++$i) {
             $transaction = $this->list[$i];
-            $data[] = $transaction->data(false);
+            $data[] = $transaction->data($cost);
         }
 
         $data[] = [
@@ -129,7 +129,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
             $unitCost = $this->shareUnitCost();
 
             $data[] = [
-                'COST',
+                'ACQU. COST',
                 $shares,
                 '*',
                 $unitCost,

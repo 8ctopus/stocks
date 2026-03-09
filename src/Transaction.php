@@ -65,9 +65,9 @@ class Transaction
         return $value > 0 ? $value + $this->cost : $value - $this->cost;
     }
 
-    public function data() : array
+    public function data(bool $cost) : array
     {
-        return [
+        $data = [
             $this->date,
             $this->shares,
             '*',
@@ -75,6 +75,12 @@ class Transaction
             '=',
             (int) round($this->value(false), 0, PHP_ROUND_HALF_UP),
         ];
+
+        if ($cost) {
+            $data[] = (int) round($this->cost, 0, PHP_ROUND_HALF_UP);
+        }
+
+        return $data;
     }
 
     public function __serialize() : array

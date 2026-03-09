@@ -240,9 +240,9 @@ class Position implements PositionInterface
         return (string) new Table($data, "{$this->ticker} DIVIDEND INCOME");
     }
 
-    public function reportTransactions() : string
+    public function reportTransactions(bool $cost) : string
     {
-        return $this->transactions->report($this->ticker);
+        return $this->transactions->report($cost, $this->ticker);
     }
 
     public function dividends(?int $year = null) : float

@@ -25,7 +25,7 @@ class PositionTransactions extends Command
                 continue;
             }
 
-            $this->output->writeLn($position->reportTransactions());
+            $this->output->writeLn($position->reportTransactions(true));
         }
 
         return self::SUCCESS;
