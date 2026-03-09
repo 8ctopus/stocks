@@ -16,9 +16,12 @@ class PositionList extends Command
     {
         $commander = $this->getCommander();
 
+        /** @disregard P1013 */
+        $portfolio = $commander->portfolio();
+
         $ticker = $this->arg('ticker')->getValue();
 
-        foreach ($commander->portfolio() as $position) {
+        foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
