@@ -118,6 +118,33 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         $shares = $this->shares();
         $total = $this->total(true);
 
+        $data[] = [
+            'ACQU. COST',
+            '',
+            '',
+            $this->shareUnitCost(),
+        ];
+
+        /*
+        $data[] = [
+            'ACQU. COST',
+            $shares,
+            '*',
+            $unitCost,
+            '=',
+            (int) round($shares * $unitCost, 0, PHP_ROUND_HALF_UP),
+        ];
+
+        $data[] = [
+            'TOTAL',
+            $shares,
+            '*',
+            $total / $shares,
+            '=',
+            (int) round($total, 0, PHP_ROUND_HALF_UP),
+        ];
+        */
+
         if ($shares === 0) {
             $data[] = [
                 'REALIZED GAIN',
@@ -125,33 +152,6 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 '',
                 (int) round(-$total, 0, PHP_ROUND_HALF_UP),
             ];
-        } else {
-            $data[] = [
-                'ACQU. COST',
-                '',
-                '',
-                $this->shareUnitCost(),
-            ];
-
-            /*
-            $data[] = [
-                'ACQU. COST',
-                $shares,
-                '*',
-                $unitCost,
-                '=',
-                (int) round($shares * $unitCost, 0, PHP_ROUND_HALF_UP),
-            ];
-
-            $data[] = [
-                'TOTAL',
-                $shares,
-                '*',
-                $total / $shares,
-                '=',
-                (int) round($total, 0, PHP_ROUND_HALF_UP),
-            ];
-            */
         }
 
         if (empty($title)) {
