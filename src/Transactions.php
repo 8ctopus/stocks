@@ -126,8 +126,14 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 (int) round(-$total, 0, PHP_ROUND_HALF_UP),
             ];
         } else {
-            $unitCost = $this->shareUnitCost();
+            $data[] = [
+                'ACQU. COST',
+                $shares,
+                '',
+                $this->shareUnitCost(),
+            ];
 
+            /*
             $data[] = [
                 'ACQU. COST',
                 $shares,
@@ -145,6 +151,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
                 '=',
                 (int) round($total, 0, PHP_ROUND_HALF_UP),
             ];
+            */
         }
 
         if (empty($title)) {
