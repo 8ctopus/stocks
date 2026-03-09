@@ -113,12 +113,6 @@ class Position implements PositionInterface
             $this->shares(),
         ];
 
-        $data[] = [
-            'SHARE YTD',
-            $this->price(),
-            Helper::sprintf('%+.1f%%', 100 * ($this->price - $this->priceYearOpen()) / $this->priceYearOpen()),
-        ];
-
         $currentValue = $this->currentValue();
 
         $data[] = [
@@ -193,6 +187,12 @@ class Position implements PositionInterface
                 sprintf('%.1f%%', 100 * $currentValue / $portfolioValue),
             ];
         }
+
+        $data[] = [
+            'SHARE YTD',
+            $this->price(),
+            Helper::sprintf('%+.1f%%', 100 * ($this->price - $this->priceYearOpen()) / $this->priceYearOpen()),
+        ];
 
         return $data;
     }
