@@ -57,7 +57,7 @@ class Transaction
     {
         $value = $this->price * $this->shares;
 
-        if (!$cost) {
+        if (!$cost || $this->cost == 0) {
             return $value;
         }
 
