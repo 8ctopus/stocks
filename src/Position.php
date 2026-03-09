@@ -78,7 +78,7 @@ class Position implements PositionInterface
 
     public function realizedGain() : float
     {
-        return $this->acquisitionCost() - $this->transactions->total();
+        return $this->acquisitionCost() - $this->transactions->total(true);
     }
 
     public function dividendsPaid() : string
