@@ -92,23 +92,6 @@ class Transaction
         $this->date = $data['date'];
         $this->shares = $data['shares'];
         $this->price = $data['price'];
-
-        if ($this->cost == 0 && $this->date >= new DateTime('2024-04-02')) {
-            $stdin = fopen('php://stdin', 'r');
-
-            if ($stdin === false) {
-                throw new Exception('fopen');
-            }
-
-            $date = $this->date->format('Y-m-d');
-
-            echo "{$date} {$this->shares} {$this->price}> ";
-            $this->cost = (float) trim(fgets($stdin));
-
-            fclose($stdin);
-        }
-
-
         $this->cost = $data['cost'];
     }
 }
