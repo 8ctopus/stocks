@@ -18,6 +18,9 @@ class PositionDividends extends Command
     {
         $commander = $this->getCommander();
 
+        /** @disregard P1013 */
+        $portfolio = $commander->portfolio();
+
         $ticker = $this->arg('ticker')->getValue();
         $summary = $this->arg('summary')->getValue();
         $year = $this->arg('year')->getValue();
@@ -27,7 +30,7 @@ class PositionDividends extends Command
         $totalAcquistionCost = 0;
         $currentValue = 0;
 
-        foreach ($commander->portfolio() as $position) {
+        foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
