@@ -128,7 +128,7 @@ class Transactions implements Countable, IteratorAggregate, ArrayAccess
         } else {
             $data[] = [
                 'ACQU. COST',
-                $shares,
+                '',
                 '',
                 $this->shareUnitCost(),
             ];
