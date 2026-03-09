@@ -17,7 +17,10 @@ class PositionTransactions extends Command
 
         $ticker = $this->arg('ticker')->getValue();
 
-        foreach ($commander->portfolio() as $position) {
+        /** @disregard P1013 */
+        $portfolio = $commander->portfolio();
+
+        foreach ($portfolio as $position) {
             if ($ticker && $ticker !== $position->ticker()) {
                 continue;
             }
