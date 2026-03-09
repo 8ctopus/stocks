@@ -109,7 +109,7 @@ class Position implements PositionInterface
         }
 
         $data[] = [
-            $this->ticker,
+            "{$this->ticker} shares",
             $this->shares(),
         ];
 
