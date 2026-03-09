@@ -9,7 +9,7 @@ use Swew\Cli\Command;
 
 class PositionList extends Command
 {
-    public const NAME = 'list {ticker= (str)}';
+    public const NAME = 'list {--zero=false (bool)}';
     public const DESCRIPTION = 'List positions';
 
     public function __invoke() : int
@@ -19,14 +19,10 @@ class PositionList extends Command
         /** @disregard P1013 */
         $portfolio = $commander->portfolio();
 
-        $ticker = $this->arg('ticker')->getValue();
+        $zero = $this->arg('zero')->getValue();
 
         foreach ($portfolio as $position) {
-            if ($ticker && $ticker !== $position->ticker()) {
-                continue;
-            }
-
-            if ($position->shares() === 0) {
+            if (!$zero && $position->shares() === 0) {
                 continue;
             }
 
