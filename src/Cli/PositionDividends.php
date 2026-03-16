@@ -39,7 +39,8 @@ class PositionDividends extends Command
             $totalDividends += $dividends;
 
             // FIX ME
-            $acquistionCost = $position->acquisitionCostOn(new DateTime('now'));
+            //$acquistionCost = $position->acquisitionCostOn(new DateTime('now'));
+            $acquistionCost = $position->acquisitionCost();
             $totalAcquistionCost += $acquistionCost;
             $currentValue += $position->currentValue();
 
