@@ -227,6 +227,10 @@ class Position implements PositionInterface
 
         $data[] = ['-'];
 
+        $acquisitionCost = $this->acquisitionCost();
+
+        $percentage = $acquisitionCost > 1 ? Helper::sprintf('%+.1f%%', 100 * $total / $acquisitionCost) : 'n/a';
+
         $data[] = [
             '',
             '',
@@ -234,7 +238,7 @@ class Position implements PositionInterface
             '',
             '',
             (int) $total,
-            Helper::sprintf('%+.1f%%', 100 * $total / $this->acquisitionCost()),
+            $percentage,
         ];
 
         return (string) new Table($data, "{$this->ticker} DIVIDEND INCOME");
